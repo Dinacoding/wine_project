@@ -31,12 +31,11 @@ class WinePost(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     vintage_year = models.IntegerField() 
     content = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
 
     class Meta: # <--- ADD THIS BLOCK
         ordering = ["-created_on"]
 
     def __str__(self): # <--- ADD THIS METHOD
-        return self.title
+        return f"{self.title} | written by {self.author}"
 
