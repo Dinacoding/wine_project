@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import WinePost
 # Create your views here.
+
 class PostList(generic.ListView):
     model = WinePost
+    template_name = "wine_app/index.html"
+    paginate_by = 6
 
 
 def home_page(request):
