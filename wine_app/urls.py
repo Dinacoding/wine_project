@@ -9,7 +9,10 @@ app_name = 'wine_app'
 
 urlpatterns = [
     path('', views.home_page, name='home'),
+    path('<slug:slug>/', views.post_detail, name='post_detail'),
+
 ]
+
 
 class PostList(generic.ListView):
     queryset = WinePost.objects.filter(author=2)

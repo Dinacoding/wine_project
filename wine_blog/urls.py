@@ -25,4 +25,5 @@ urlpatterns = [
     path('', include('wine_app.urls')),
     path('summernote/', include('django_summernote.urls')),
 
+
 ]
