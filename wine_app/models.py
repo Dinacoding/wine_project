@@ -32,6 +32,10 @@ class WinePost(models.Model):
         if not self.slug:
             self.slug = self.title.replace(" ", "-").lower()
         super().save(*args, **kwargs)
+    
+    
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'slug': self.slug})
 
 # If you need a custom user profile, create a separate model
 class UserProfile(models.Model):
