@@ -27,6 +27,11 @@ class WinePost(models.Model):
     def __str__(self):
         return f"{self.title} | written by {self.author}"
 
+    def save(self, *args, **kwargs):
+        # Automatically set the slug from the title if not provided
+        if not self.slug:
+            self.slug = self.title.replace(" ", "-").lower()
+        super().save(*args, **kwargs)
 
 # If you need a custom user profile, create a separate model
 class UserProfile(models.Model):
