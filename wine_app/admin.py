@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import WinePost
+from .models import UserProfile
 from django_summernote.admin import SummernoteModelAdmin
 
 
@@ -10,3 +11,10 @@ class WinePostAdmin(SummernoteModelAdmin):
     list_filter = ('status', 'created_on')
     prepopulated_fields = {'slug': ('title',)}
     summernote_fields = ('content',)
+
+# Register your models here.
+# If you have a UserProfile model, you can register it similarly   
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'bio')
+    search_fields = ('user__username', 'bio')   
