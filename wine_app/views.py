@@ -8,7 +8,6 @@ from django.contrib.auth.models import User # Import User model for user_profile
 
 from .models import WinePost, UserProfile
 from .forms import WinePostForm, UserProfileForm
-
 # Create your views here.
 
 def  home_page(request):
@@ -72,3 +71,42 @@ def create_post(request):
         "wine_app/create_post.html",
         {"form": form},
     )       
+
+@login_required
+def update_post(request, slug):
+    """
+    Update an existing wine post.
+    """
+    post = get_object_or_404(WinePost, slug=slug, author=request.user)
+
+    if request.method == "POST":
+        form = WinePostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Post updated successfully!")
+            return redirect("wine_app:post_detail", slug=post.slug)
+    else:
+        form = WinePostForm(instance=post)
+
+    return render(
+        request,
+        "wine_app/update_post.html",
+        {"form": form, "post": post},
+    )
+@login_required
+def delete_post(request, slug):
+    """
+    Delete a wine post.
+    """
+    post = get_object_or_404(WinePost, slug=slug, author=request.user)
+
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Post deleted successfully!")
+        return redirect("wine_app:home")
+
+    return render(
+        request,
+        "wine_app/delete_post.html",
+        {"post": post},
+    )
