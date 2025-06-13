@@ -8,9 +8,17 @@ from .models import WinePost
 app_name = 'wine_app'
 
 urlpatterns = [
-    path('', views.home_page, name='home'),
-    path('<slug:slug>/', views.post_detail, name='post_detail'),
-
+    path('', views.PostList.as_view(), name='home'),
+    path('blog/', views.blog, name='blog'),
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register_view, name='register'),
+    path('profile/', views.profile, name='profile'),
+    path('logout/', views.logout_view, name='logout'),  
+    path('post/<slug:slug>/', views.post_detail, name='post_detail'),
+    path('post/<slug:slug>/edit/', views.edit_post, name='edit_post'),      
+    path('post/<slug:slug>/delete/', views.delete_post, name='delete_post'),
+    path('post/new/', views.create_post, name='create_post'),
+    path('post/list/', views.PostList.as_view(), name='post_list'),
 ]
 
 
