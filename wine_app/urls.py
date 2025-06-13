@@ -19,6 +19,3 @@ urlpatterns = [
     path('post/new/', views.create_post, name='create_post'),
     path('post/list/', views.PostList.as_view(), name='post_list'),
 ]
-
-path('post/list/', views.PostList.as_view(), name='post_list'),
-
