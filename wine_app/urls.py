@@ -20,7 +20,5 @@ urlpatterns = [
     path('post/list/', views.PostList.as_view(), name='post_list'),
 ]
 
+path('post/list/', views.PostList.as_view(), name='post_list'),
 
-class PostList(generic.ListView):
-    queryset = WinePost.objects.filter(author=2)
-    template_name = "post_list.html"
