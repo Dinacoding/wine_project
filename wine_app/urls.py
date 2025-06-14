@@ -1,21 +1,10 @@
 from django.urls import path
 from . import views
-from django_summernote.admin import SummernoteModelAdmin
-from django.views import generic
-from .models import WinePost 
 
-
-app_name = 'wine_app'
 
 urlpatterns = [
     path('', views.PostList.as_view(), name='home'),
-    path('blog/', views.blog, name='blog'),
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register_view, name='register'),
-    path('profile/', views.profile, name='profile'),
-    path('logout/', views.logout_view, name='logout'),  
-    path('post/<slug:slug>/', views.post_detail, name='post_detail'),
-    path('post/<slug:slug>/delete/', views.delete_post, name='delete_post'),
-    path('post/new/', views.create_post, name='create_post'),
-    path('post/list/', views.PostList.as_view(), name='post_list'),
+    path('blog/', views.PostList.as_view(), name='blog'),
+    path('post/<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path('register/', views.UserRegisterView.as_view(), name='register'),
 ]

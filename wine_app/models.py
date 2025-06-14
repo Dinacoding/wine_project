@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+from django.utils.text import slugify
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
@@ -30,12 +32,13 @@ class WinePost(models.Model):
     def save(self, *args, **kwargs):
         # Automatically set the slug from the title if not provided
         if not self.slug:
-            self.slug = self.title.replace(" ", "-").lower()
+            self.slug = slugify(self.title)
         super().save(*args, **kwargs)
     
-    
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'slug': self.slug})
+        # Updated to match the namespaced URL pattern
+        return reverse('wine_app:post_detail', kwargs={'slug': self.slug})
+
 
 # If you need a custom user profile, create a separate model
 class UserProfile(models.Model):
