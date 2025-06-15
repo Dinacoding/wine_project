@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body><!-- wine_app/templates/wine_app/index.html -->
 {% extends 'base.html' %}
-
+{% load static %}
+        
 {% block title %}All Wine Posts{% endblock %}
 
 {% block content %}
-<h1>All Wine Posts</h1>
-{% for post in wine_posts %}
-    {% if post.slug %}
-        <a href="{% url 'wine_app:post_detail' post.slug %}" class="post-link">{{ post.title }}</a>
-    {% else %}
-        <span>Post has no slug</span>
-    {% endif %}
+<div class="container wine-container text-center">
+    <h1>Wine Project</h1>
+    <p>A swirling, sipping, storytelling journey through the curious world of wine!</p>
 
-{% endfor %}
-{% endblock %}
-</body>
-</html>
+    <div class="d-flex justify-content-center gap-3 mb-4">
+        <button class="btn btn-primary" type="button">Register</button>
+        <button class="btn btn-secondary" type="button">Blog</button>
+    </div>
+
+    <div class="mt-4">
+        {% for post in wine_posts %}
+            {% if post.slug %}
+                <a href="{% url 'wine_app:post_detail' post.slug %}" class="post-link d-block">{{ post.title }}</a>
+            {% else %}
+                <span>Post has no slug</span>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

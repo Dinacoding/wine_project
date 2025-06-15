@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+   font-family: Arial, sans-serif;
+    color: #333;
+    height: 100vh;
+    background: url('../images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex; 
+    flex-direction: column; 
+}
+main {
+    flex-grow: 1; 
+}
+
+.wine-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1;  
+    
+}

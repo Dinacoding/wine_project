@@ -32,6 +32,15 @@
     {# This block allows child templates to add extra CSS, meta tags, etc. #}
     {% endblock extra_head %}
 </head>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    height: 100vh;
+    background: url("{% static 'images/background.jpg' %}") no-repeat center center fixed;
+    background-size: cover;
+}
+</style>
 <body>
     {# Accessibility: Skip to main content link for screen readers #}
     <a class="sr-only-focusable" href="#main-content">Skip to main content</a>
@@ -44,7 +53,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto"> {# Added ms-auto to push links to the right #}
+                    <ul class="navbar-nav ms-auto"> 
                         <li class="nav-item">
                             <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="{% if request.resolver_match.url_name == 'home' %}page{% else %}false{% endif %}" href="{% url 'home' %}">Home</a>
                         </li>
@@ -69,11 +78,11 @@
         {% endblock content %}
     </main>
 
-    <footer class="bg-light py-4 mt-5"> {# Added Bootstrap classes for simple styling #}
+    <footer class="bg-light py-4 mt-5"> 
         <div class="container text-center">
             <div class="footer-info" role="contentinfo">
                 <p class="mb-2">&copy; <span id="current-year"></span> Dinacoding. All rights reserved.</p>
-                <ul class="list-inline social-links mt-3"> {# Using Bootstrap's list-inline for horizontal social links #}
+                <ul class="list-inline social-links mt-3"> 
                     <li class="list-inline-item">
                         <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit us on Facebook (opens in a new tab)">
                             <i class="fab fa-facebook-f"></i>
@@ -103,3 +112,11 @@
     {% block extra_js %}
     {# This block allows child templates to add extra JavaScript #}
     {% endblock extra_js %}
+
+
+
+
+
+
+
+
