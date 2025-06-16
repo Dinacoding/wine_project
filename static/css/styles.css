@@ -26,6 +26,10 @@ header {
     height: 70vh;
 }
 
+.container h1 , .container p{
+    color: white;
+}
+
 .wine-container {
     max-width: 1200px;
     margin: 0 auto;
