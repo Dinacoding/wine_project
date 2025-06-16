@@ -5,24 +5,32 @@
     
 }
 
-body {
-   font-family: Arial, sans-serif;
-    color: #333;
-    height: 100vh;
-    background: url('../images/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex; 
-    flex-direction: column; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
 }
-main {
-    flex-grow: 1; 
+
+.container.wine-container.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
 }
 
 .wine-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
-    z-index: 1;  
+    height: 65vh;
     
+    
+}
+.wine-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
