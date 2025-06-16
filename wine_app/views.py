@@ -10,7 +10,7 @@ class PostList(generic.ListView):
     model = WinePost
     queryset = WinePost.objects.filter(status=1).order_by('-created_on')
     template_name = 'wine_app/index.html'
-    context_object_name = 'wine_posts'  # This will be available as 'wine_posts' in template
+    context_object_name = 'wine_posts'  
     paginate_by = 6
 
 class PostDetail(generic.DetailView):
@@ -30,9 +30,10 @@ class UserRegisterView(generic.CreateView):
     """
     model = WinePost  # This should be a User model, but using WinePost for example
     template_name = 'wine_app/register.html'
-    form_class = None  # Replace with your User registration form
-    success_url = '/'  # Redirect to home after successful registration
+    form_class = None     # Replace with your User registration form
+    success_url = '/home'  # Redirect to home after successful registration
 
     def form_valid(self, form):
         # Handle user creation logic here
         return super().form_valid(form)
+    
