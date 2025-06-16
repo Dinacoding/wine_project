@@ -23,7 +23,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 70vh;
+    height: 75vh;
 }
 
 .container h1 , .container p{
@@ -42,4 +42,14 @@ header {
 .wine-container h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+}
+footer {
+    background-color: #1f723c;
+    color: white;
+    padding: 20px;
+}
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
