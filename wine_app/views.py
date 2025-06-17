@@ -49,6 +49,11 @@ class UserRegisterView(generic.CreateView):
     template_name = 'wine_app/register.html'
     form_class = None     # Replace with your User registration form
     success_url = '/home'  # Redirect to home after successful registration
+    fields = ['username', 'email', 'password1', 'password2']  # Adjust fields as necessary
+    def get_form_class(self):
+        # Return the form class for user registration
+        from django.contrib.auth.forms import UserCreationForm
+        return UserCreationForm
 
     def form_valid(self, form):
         # Handle user creation logic here
