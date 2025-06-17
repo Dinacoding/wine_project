@@ -45,10 +45,10 @@ class UserRegisterView(generic.CreateView):
     """
     View for user registration
     """
-    model = WinePost  # This should be a User model, but using WinePost for example
+    model = WinePost 
     template_name = 'wine_app/register.html'
-    form_class = None     # Replace with your User registration form
-    success_url = '/home'  # Redirect to home after successful registration
+    form_class = None  
+    success_url = '/home'  
     fields = ['username', 'email', 'password1', 'password2']  # Adjust fields as necessary
     def get_form_class(self):
         # Return the form class for user registration
