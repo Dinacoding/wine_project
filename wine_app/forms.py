@@ -44,6 +44,8 @@ class YourFormName(forms.Form):
             'placeholder': 'Enter last name'
         })
     )
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
     username = forms.CharField(max_length=150)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())

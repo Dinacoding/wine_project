@@ -47,9 +47,9 @@ class UserRegisterView(generic.CreateView):
     """
     model = WinePost 
     template_name = 'wine_app/register.html'
-    form_class = None  
-    success_url = '/home'  
-    fields = ['username', 'email', 'password1', 'password2']  # Adjust fields as necessary
+    form_class = None
+    success_url = '/login/'  # Redirect to login after successful registration
+    fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
     def get_form_class(self):
         # Return the form class for user registration
         from django.contrib.auth.forms import UserCreationForm
