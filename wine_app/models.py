@@ -48,3 +48,17 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return f"{self.user.username}'s profile"
+    
+class User(models.Model):
+    """
+    Custom user model if needed, otherwise use Django's built-in User model.
+    """
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)  # Store hashed passwords
+
+    def __str__(self):
+        return self.username
+
+    def get_absolute_url(self):
+        return reverse('wine_app:user_profile', kwargs={'username': self.username})
