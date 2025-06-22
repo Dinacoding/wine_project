@@ -16,7 +16,16 @@ class UserLoginView(LoginView):
     template_name = 'wine_app/login.html'
     redirect_authenticated_user = True
     success_url = reverse_lazy('blog')  # Redirect to blog after login
-    
+
+class BlogListView(generic.ListView):
+    """
+    View for displaying list of wine posts in the blog
+    """
+    model = WinePost
+    queryset = WinePost.objects.filter(status=1).order_by('-created_on')
+    template_name = 'wine_app/blog.html'
+    context_object_name = 'wine_posts'
+    paginate_by = 6
 
 class UserLogoutView(LogoutView):
     """ 
