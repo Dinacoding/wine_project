@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
 
-
+class HomeView(views.generic.TemplateView):
+    template_name = 'wine_app/home.html'
+    
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('blog/', views.BlogListView.as_view(), name='blog'),
