@@ -74,4 +74,4 @@ class HomeView(generic.TemplateView):
     """
     View for the home page
     """
-    template_name = 'wine_app/home.html'
+    template_name = 'wine_app/index.html'
