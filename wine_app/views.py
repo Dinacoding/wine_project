@@ -4,6 +4,9 @@ from .models import WinePost
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin  
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
+from .forms import UserRegistrationForm
+from django.contrib.auth.models import User
+
 
 
 class UserLoginView(LoginView):
@@ -12,6 +15,8 @@ class UserLoginView(LoginView):
     """
     template_name = 'wine_app/login.html'
     redirect_authenticated_user = True
+    success_url = reverse_lazy('blog')  # Redirect to blog after login
+    
 
 class UserLogoutView(LogoutView):
     """ 
@@ -45,17 +50,13 @@ class UserRegisterView(generic.CreateView):
     """
     View for user registration
     """
-    model = WinePost 
+    model = User  # Link to the Django User model
     template_name = 'wine_app/register.html'
-    form_class = None
-    success_url = '/login/'  # Redirect to login after successful registration
-    fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
-    def get_form_class(self):
-        # Return the form class for user registration
-        from django.contrib.auth.forms import UserCreationForm
-        return UserCreationForm
-
+    form_class = UserRegistrationForm  # <-- This line TELLS the CreateView to use YOUR form
+    success_url = reverse_lazy('login')
     def form_valid(self, form):
-        # Handle user creation logic here
+        """
+        If the form is valid, save the user and redirect to the login page
+        """
+        user = form.save()
         return super().form_valid(form)
-    

@@ -4,6 +4,58 @@
 {% block title %}All Wine Posts{% endblock %}
 
 {% block content %} 
+<div id="loading-spinner" class="flex justify-center items-center py-8">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                <p class="ml-3 text-lg text-gray-700">Loading blog posts...</p>
+            </div>
+
+            <!-- Message Box (for alerts/confirmations) -->
+            <div id="message-box" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 p-4">
+                <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
+                    <p id="message-text" class="text-lg font-semibold text-gray-800 mb-4"></p>
+                    <button id="message-close-button" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+                        OK
+                    </button>
+                </div>
+            </div>
+
+            <!-- Create New Post Section -->
+            <section id="create-post-section" class="mb-8 p-6 bg-gray-50 rounded-lg shadow-inner border border-gray-200">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create a New Post</h2>
+                <div id="login-prompt" class="text-center py-4 text-gray-600 text-lg font-medium">
+                    Please sign in to create new posts.
+                </div>
+                <form id="create-post-form" class="hidden">
+                    <div class="mb-4">
+                        <label for="post-title" class="block text-gray-700 text-sm font-bold mb-2">Title:</label>
+                        <input type="text" id="post-title" name="post-title" required
+                               class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200">
+                    </div>
+                    <div class="mb-6">
+                        <label for="post-content" class="block text-gray-700 text-sm font-bold mb-2">Content:</label>
+                        <textarea id="post-content" name="post-content" rows="6" required
+                                  class="shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" id="submit-post-button"
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105">
+                            Publish Post
+                        </button>
+                        <span id="post-status-message" class="text-sm text-gray-600 ml-4"></span>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Blog Posts Display Section -->
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Posts</h2>
+                <div id="blog-posts-container" class="space-y-6">
+                    <!-- Blog posts will be loaded here dynamically -->
+                </div>
+                <p id="no-posts-message" class="text-center text-gray-500 py-8 hidden">
+                    No posts yet. Be the first to create one!
+                </p>
+            </section>
 
 
 {% endblock content %}
