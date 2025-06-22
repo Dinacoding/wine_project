@@ -60,3 +60,9 @@ class UserRegisterView(generic.CreateView):
         """
         user = form.save()
         return super().form_valid(form)
+    
+class HomeView(generic.TemplateView):
+    """
+    View for the home page
+    """
+    template_name = 'wine_app/home.html'
