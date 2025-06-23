@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('summernote/', include('django_summernote.urls')),
+
     path('', include('wine_app.urls')),  # This should be LAST to avoid conflicts
 ]
 
@@ -15,3 +16,8 @@ if settings.DEBUG:
     if hasattr(settings, 'STATICFILES_DIRS'):
         for static_dir in settings.STATICFILES_DIRS:
             urlpatterns += static(settings.STATIC_URL, document_root=static_dir)
+
+
+
+
+            

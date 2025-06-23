@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import WinePost
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin  
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from .forms import UserRegistrationForm
@@ -32,7 +31,7 @@ class UserLogoutView(LogoutView):
     View for user logout
     """
     template_name = 'wine_app/logout.html'
-    next_page = '/home'  # Redirect to home after logout    
+    next_page = 'index.html'  # Redirect to home after logout    
 
 class PostList(generic.ListView):
     """
