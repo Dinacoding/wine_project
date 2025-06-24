@@ -85,15 +85,14 @@ class UserProfileForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body'] # Assuming 'body' is the field for comment text
+        fields = ['body']
         widgets = {
             'body': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Type your comment here...',
-                'rows': 4 # Adjust rows as needed
+                'placeholder': 'Leave a comment...',
+                'rows': 4
             })
         }
-    
-    # You might want to override __init__ here too for custom styling or initial data
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        labels = {
+            'body': '' # No label for the text area
+        }

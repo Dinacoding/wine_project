@@ -49,16 +49,69 @@ class PostList(generic.ListView):
     context_object_name = 'wine_posts'
     paginate_by = 6
 
-class PostDetail(View):
-    """
-    View for displaying individual wine post
-    """
-    model = WinePost
-    template_name = 'wine_app/post_detail.html'
-    context_object_name = 'post'
+class PostDetail(View): # Correctly inherits from View
+    def get(self, request, slug, *args, **kwargs):
+        queryset = WinePost.objects.filter(status=1)
+        post = get_object_or_404(queryset, slug=slug)
+        comments = post.comments.filter(approved=True).order_by("created_on")
 
-    def get_queryset(self):
-        return WinePost.objects.filter(status=1)
+        comment_form = CommentForm() # Instantiate an empty form
+
+        return render(
+            request,
+            "wine_app/post_detail.html",
+            {
+                "post": post,
+                "comments": comments,
+                "comment_form": comment_form,
+            },
+        )
+
+    def post(self, request, slug, *args, **kwargs):
+        queryset = WinePost.objects.filter(status=1)
+        post = get_object_or_404(queryset, slug=slug)
+        comments = post.comments.filter(approved=True).order_by("created_on")
+
+        comment_form = CommentForm(data=request.POST)
+
+        if comment_form.is_valid():
+            if request.user.is_authenticated:
+                comment_form.instance.author = request.user
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.save()
+                messages.success(request, 'Your comment has been posted and is awaiting moderation.')
+                return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+            else:
+                messages.error(request, 'You must be logged in to post a comment.')
+        else:
+            messages.error(request, 'There was an error with your comment. Please correct the errors below.')
+
+        return render(
+            request,
+            "wine_app/post_detail.html",
+            {
+                "post": post,
+                "comments": comments,
+                "comment_form": comment_form,
+            },
+        )
+
+@login_required
+def delete_post(request, slug):
+    post = get_object_or_404(WinePost, slug=slug)
+    if request.user != post.author:
+        messages.error(request, "You don't have permission to delete this post.")
+        raise Http404("You don't have permission to delete this post")
+    if request.method == 'POST':
+        post_title = post.title
+        post.delete()
+        messages.success(request, f'Post "{post_title}" has been deleted successfully.')
+        return redirect('blog')
+    messages.warning(request, 'Invalid method for post deletion.')
+    return redirect('post_detail', slug=slug)
+
+
     
 class PostCreateView(generic.CreateView):
     """
@@ -98,18 +151,3 @@ class HomeView(generic.TemplateView):
 
 
 
-@login_required
-def delete_post(request, slug):
-    post = get_object_or_404(WinePost, slug=slug)
-    
-    # Only allow the author to delete their own post
-    if request.user != post.author:
-        raise Http404("You don't have permission to delete this post")
-    
-    if request.method == 'POST':
-        post_title = post.title
-        post.delete()
-        messages.success(request, f'Post "{post_title}" has been deleted successfully.')
-        return redirect('wine_posts')  # Redirect to posts list
-    
-    return redirect('blog', slug=slug)
