@@ -16,7 +16,7 @@
                     <h1 class="wine-title display-4">{{ post.title }}</h1> {# Larger title for detail page #}
                     <div class="wine-name lead text-muted">{{ post.wine_name }}</div>
                     <span class="vintage-badge">{{ post.vintage_year }}</span>
-                    <p class="text-muted mt-2">By <span class="author-name-detail">{{ post.author.get_full_name|default:post.author.username }}</span> on {{ post.created_on|date:"F d, Y" }}</p>
+                    <p class="text-muted mt-2">By <span class="author-name-detail">{{ post.author}}</span> on {{ post.created_on|date:"F d, Y" }}</p>
                 </div>
 
                 <div class="card-content-full mb-4">
