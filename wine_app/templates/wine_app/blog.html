@@ -1,50 +1,124 @@
 {% extends 'base.html' %}
 {% load static %}
-        
+
 {% block title %}All Wine Posts{% endblock %}
 
-{% block content %} 
+{% block content %}
 <div class="container">
-        <header class="header">
-            <div class="greeting">
-                {% if user.is_authenticated %}
-                    Hello, {{ user.username }}!
-                {% else %}
-                    Welcome to Wine Project
-                {% endif %}
-            </div>
-            <div class="auth-section">
-                {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
-                    {% csrf_token %}
-                         <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
-                            Logout
-                        </button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
-                {% endif %}
-            </div>
-        </header>   
-    </div>
-    <div class="container mt-5">
-        <h2 class="text-center text-white mb-4">Wine Project Posts</h2>
-        <div class="row">
-            {% for post in wine_posts %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <p class="card-text">{{ post.content|truncatewords:30 }}</p>
-                        </div>
-                    </div> 
-                </div>
+    <header class="header">
+        <div class="greeting">
+            {% if user.is_authenticated %}
+                Hello, {{ user.username }}!
+            {% else %}
+                Welcome to Wine Project
+            {% endif %}
         </div>
-        {% extends 'post_detail.html' %}
-        {%endfor%}
+        <div class="auth-section">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
+                        Logout
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+            {% endif %}
+        </div>
+    </header>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center text-white mb-4">Wine Project Posts</h2>
+    <div class="row">
+        {% if wine_posts %}
+            {% for post in wine_posts %}
+            <div class="col-lg-6 col-xl-4 mb-4"> {# Using more robust column classes for card layout #}
+                <div class="wine-card position-relative">
+                    <span class="badge {% if post.status == 1 %}badge-published{% else %}badge-draft{% endif %} status-badge">
+                        {% if post.status == 1 %}Published{% else %}Draft{% endif %}
+                    </span>
+
+                    <div class="card-header-custom">
+                        <h3 class="wine-title">{{ post.title }}</h3>
+                        <div class="wine-name">{{ post.wine_name }}</div>
+                        <span class="vintage-badge">{{ post.vintage_year }}</span>
+                    </div>
+
+                    <div class="card-content">
+                        <p class="content-preview">
+                            {{ post.content|truncatewords:25 }}
+                        </p>
+
+                        <div class="author-section">
+                            <div class="author-avatar">
+                                {% if post.author.first_name and post.author.last_name %}
+                                    {{ post.author.first_name|first }}{{ post.author.last_name|first }}
+                                {% else %}
+                                    {{ post.author.username|first }}
+                                {% endif %}
+                            </div>
+                            <div class="author-info">
+                                <p class="author-name">{{ post.author.get_full_name|default:post.author.username }}</p>
+                                <p class="post-date">{{ post.created_on|timesince }} ago</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-read-more">
+                            <i class="bi bi-arrow-right-circle me-1"></i>
+                            Read Full Review
+                        </a>
+
+                        {% if user.is_authenticated and user == post.author %}
+                        <div class="user-actions">
+                            {# REMOVED: Edit button functionality from the list view as requested previously #}
+                            <button class="btn btn-delete btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.id }}" title="Delete Post">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if user.is_authenticated and user == post.author %}
+            <div class="modal fade delete-modal" id="deleteModal{{ post.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ post.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel{{ post.id }}">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                Confirm Delete
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete the post <strong>"{{ post.title }}"</strong>?</p>
+                            <p class="text-muted mb-0">This action cannot be undone.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form method="post" action="{% url 'delete_post' post.slug %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-confirm-delete">
+                                    <i class="bi bi-trash me-1"></i>
+                                    Delete Post
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+            {# This block runs if wine_posts is empty #}
+            <div class="col-12">
+                <p class="text-center text-white-50">No wine posts available yet. Check back soon!</p>
+            </div>
+        {% endif %}
     </div>
-    {% endfor %}
-
-
+</div>
 {% endblock content %}
-
