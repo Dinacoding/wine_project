@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.views import generic
+from django.views import generic, View
 from .models import WinePost
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from .forms import UserRegistrationForm, CommentForm
+from .forms import UserRegistrationForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect   
 from django.contrib.auth.decorators import login_required
@@ -49,7 +49,7 @@ class PostList(generic.ListView):
     context_object_name = 'wine_posts'
     paginate_by = 6
 
-class PostDetail(generic.DetailView):
+class PostDetail(View):
     """
     View for displaying individual wine post
     """
