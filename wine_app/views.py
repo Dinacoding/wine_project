@@ -14,7 +14,9 @@ class UserLoginView(LoginView):
     """
     template_name = 'wine_app/login.html'
     redirect_authenticated_user = True
-    success_url = reverse_lazy('blog')  # Redirect to blog after login
+    
+    def get_success_url(self):
+        return reverse_lazy('blog')
 
 class BlogListView(generic.ListView):
     """
