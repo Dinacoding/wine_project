@@ -1,5 +1,5 @@
 from django import forms
-from .models import WinePost, UserProfile   
+from .models import WinePost, UserProfile, Comment 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User   
 
@@ -82,3 +82,18 @@ class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['body'] # Assuming 'body' is the field for comment text
+        widgets = {
+            'body': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Type your comment here...',
+                'rows': 4 # Adjust rows as needed
+            })
+        }
+    
+    # You might want to override __init__ here too for custom styling or initial data
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

@@ -3,12 +3,12 @@ from django.views import generic
 from .models import WinePost
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, CommentForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect   
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.contrib import messages 
+from django.contrib import messages
 
 
 
