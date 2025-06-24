@@ -15,7 +15,6 @@
             </div>
             <div class="auth-section">
                 {% if user.is_authenticated %}
-                <span style="color: #764ba2;">Logged in as: <strong>{{ user.username }}</strong></span>
                     <form method="post" action="{% url 'logout' %}" style="display: inline;">
                     {% csrf_token %}
                          <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
