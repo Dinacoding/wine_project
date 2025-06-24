@@ -5,7 +5,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from .forms import UserRegistrationForm
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
+from django.shortcuts import redirect   
+from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.contrib import messages
 
 
 
@@ -77,3 +80,21 @@ class HomeView(generic.TemplateView):
     View for the home page
     """
     template_name = 'wine_app/index.html'
+
+
+
+@login_required
+def delete_post(request, slug):
+    post = get_object_or_404(WinePost, slug=slug)
+    
+    # Only allow the author to delete their own post
+    if request.user != post.author:
+        raise Http404("You don't have permission to delete this post")
+    
+    if request.method == 'POST':
+        post_title = post.title
+        post.delete()
+        messages.success(request, f'Post "{post_title}" has been deleted successfully.')
+        return redirect('wine_posts')  # Redirect to posts list
+    
+    return redirect('blog', slug=slug)
