@@ -62,3 +62,19 @@ class User(models.Model):
 
     def get_absolute_url(self):
         return reverse('wine_app:user_profile', kwargs={'username': self.username})
+    
+
+class Comment(models.Model):
+    """
+    Model for comments on wine posts.
+    """
+    post = models.ForeignKey(WinePost, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"Comment by {self.author.username} on {self.post.title}"
