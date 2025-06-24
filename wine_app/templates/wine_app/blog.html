@@ -35,10 +35,10 @@
             {% endif %}
 
             <nav class="navigation">
-                <a href="{% url 'wine_app:post_list' %}" class="nav-link">All Posts</a>
+                <a href="{% url 'post_list' %}" class="nav-link">All Posts</a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'wine_app:create_post' %}" class="nav-link">Create Post</a>
-                    <a href="{% url 'wine_app:my_posts' %}" class="nav-link">My Posts</a>
+                    <a href="{% url 'create_post' %}" class="nav-link">Create Post</a>
+                    <a href="{% url 'my_posts' %}" class="nav-link">My Posts</a>
                 {% endif %}
             </nav>
         </main>
