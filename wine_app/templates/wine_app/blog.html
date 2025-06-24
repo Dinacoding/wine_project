@@ -16,7 +16,7 @@
             <div class="auth-section">
                 {% if user.is_authenticated %}
                     <span style="color: #764ba2;">Logged in as: <strong>{{ user.username }}</strong></span>
-                    <a href="{% url 'wine_app:logout' %}" class="btn btn-logout">Logout</a>
+                    <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
                 {% endif %}
