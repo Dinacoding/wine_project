@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect   
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.contrib import messages
+from django.contrib import messages 
 
 
 
@@ -65,7 +65,7 @@ class PostCreateView(generic.CreateView):
     View for creating a new wine post
     """
     model = WinePost
-    template_name = 'wine_app/create_post.html'
+    template_name = 'wine_app/post_detail.html'
     fields = ['title', 'wine_name', 'vintage_year', 'content', 'status']
     
     def form_valid(self, form):
