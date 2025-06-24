@@ -15,8 +15,13 @@
             </div>
             <div class="auth-section">
                 {% if user.is_authenticated %}
-                    <span style="color: #764ba2;">Logged in as: <strong>{{ user.username }}</strong></span>
-                    <a href="{% url 'logout' %}?next={% url 'home' %}" class="btn btn-logout">Logout</a>
+                <span style="color: #764ba2;">Logged in as: <strong>{{ user.username }}</strong></span>
+                    <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                         <button type="submit" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer;">
+                            Logout
+                        </button>
+                    </form>
                 {% else %}
                     <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
                 {% endif %}

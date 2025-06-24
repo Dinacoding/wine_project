@@ -30,11 +30,11 @@ class BlogListView(generic.ListView):
     paginate_by = 6
 
 class UserLogoutView(LogoutView):
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-    
-    def get(self, request, *args, **kwargs):
-        return redirect('home')
+    """
+    View for user logout
+    """
+    next_page = reverse_lazy('home')  
+    http_method_names = ['get', 'post']# Redirect to home page after logout
     
 class PostList(generic.ListView):
     """
