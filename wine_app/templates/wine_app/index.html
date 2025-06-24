@@ -16,7 +16,7 @@
     <div class="mt-4">
         {% for post in wine_posts %}
             {% if post.slug %}
-                <a href="{% url 'wine_app:post_detail' post.slug %}" class="post-link d-block">{{ post.title }}</a>
+                <a href="{% url 'blog' post.slug %}" class="post-link d-block">{{ post.title }}</a>
             {% else %}
                 <span>Post has no slug</span>
             {% endif %}
