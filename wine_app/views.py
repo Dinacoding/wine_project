@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from .forms import UserRegistrationForm
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 
 
 
@@ -14,7 +15,7 @@ class UserLoginView(LoginView):
     """
     template_name = 'wine_app/login.html'
     redirect_authenticated_user = True
-    
+
     def get_success_url(self):
         return reverse_lazy('blog')
 
@@ -29,12 +30,12 @@ class BlogListView(generic.ListView):
     paginate_by = 6
 
 class UserLogoutView(LogoutView):
-    """ 
-    View for user logout
-    """
-    template_name = 'wine_app/logout.html'
-    next_page = 'index.html'  # Redirect to home after logout    
-
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+    
+    def get(self, request, *args, **kwargs):
+        return redirect('home')
+    
 class PostList(generic.ListView):
     """
     View for displaying list of wine posts
