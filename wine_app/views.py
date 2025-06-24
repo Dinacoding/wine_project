@@ -33,7 +33,7 @@ class UserLogoutView(LogoutView):
     """
     View for user logout
     """
-    next_page = reverse_lazy('home')  
+    next_page = '/'
     http_method_names = ['get', 'post']# Redirect to home page after logout
     
 class PostList(generic.ListView):
