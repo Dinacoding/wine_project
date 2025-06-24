@@ -59,6 +59,21 @@ class PostDetail(generic.DetailView):
 
     def get_queryset(self):
         return WinePost.objects.filter(status=1)
+    
+class PostCreateView(generic.CreateView):
+    """
+    View for creating a new wine post
+    """
+    model = WinePost
+    template_name = 'wine_app/create_post.html'
+    fields = ['title', 'wine_name', 'vintage_year', 'content', 'status']
+    
+    def form_valid(self, form):
+        """
+        If the form is valid, save the post and set the author to the current user
+        """
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class UserRegisterView(generic.CreateView):
     """
