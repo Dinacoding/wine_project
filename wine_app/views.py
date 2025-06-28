@@ -49,53 +49,29 @@ class PostList(generic.ListView):
     context_object_name = 'wine_posts'
     paginate_by = 6
 
-class PostDetail(View): # Correctly inherits from View
-    def get(self, request, slug, *args, **kwargs):
-        queryset = WinePost.objects.filter(status=1)
-        post = get_object_or_404(queryset, slug=slug)
-        comments = post.comments.filter(approved=True).order_by("created_on")
 
-        comment_form = CommentForm() # Instantiate an empty form
+def PostDetail(request, slug):
+    """
+    View for displaying a single wine post  
+    """
+    post = get_object_or_404(WinePost, slug=slug)
+    incomplete_fields = []
+    required_fields = {
+        'title': post.title,
+        'wine_name': post.wine_name,
+        'vintage_year': post.vintage_year,
+        'content': post.content,
+        'status': post.status
+    }
+    for field_name, field_value in required_fields.items():
+        if not field_value or (isinstance(field_value, str) and not field_value.strip()):
+            incomplete_fields.append(field_name)
+    context = {
+        'post': post,
+        'incomplete_fields': incomplete_fields,
+    }
+    return render(request, 'wine_app/post_detail.html', context)
 
-        return render(
-            request,
-            "wine_app/post_detail.html",
-            {
-                "post": post,
-                "comments": comments,
-                "comment_form": comment_form,
-            },
-        )
-
-    def post(self, request, slug, *args, **kwargs):
-        queryset = WinePost.objects.filter(status=1)
-        post = get_object_or_404(queryset, slug=slug)
-        comments = post.comments.filter(approved=True).order_by("created_on")
-
-        comment_form = CommentForm(data=request.POST)
-
-        if comment_form.is_valid():
-            if request.user.is_authenticated:
-                comment_form.instance.author = request.user
-                comment = comment_form.save(commit=False)
-                comment.post = post
-                comment.save()
-                messages.success(request, 'Your comment has been posted and is awaiting moderation.')
-                return HttpResponseRedirect(reverse('post_detail', args=[slug]))
-            else:
-                messages.error(request, 'You must be logged in to post a comment.')
-        else:
-            messages.error(request, 'There was an error with your comment. Please correct the errors below.')
-
-        return render(
-            request,
-            "wine_app/post_detail.html",
-            {
-                "post": post,
-                "comments": comments,
-                "comment_form": comment_form,
-            },
-        )
 
 @login_required
 def delete_post(request, slug):
