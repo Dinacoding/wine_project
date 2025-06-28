@@ -82,30 +82,6 @@
                         Complete Your Wine Review
                     </h5>
                 </div>
-                <div class="card-body">
-                    <p class="card-text">Please complete the following required fields to finalize your wine review:</p>
-                    <form method="post" action="{% url 'update_post' post.slug %}">
-                        {% csrf_token %}
-                        <div class="row">
-                            {% if 'title' in incomplete_fields %}
-                            <div class="col-md-6 mb-3">
-                                <label for="title" class="form-label">
-                                    <i class="bi bi-card-text me-1"></i>Title *
-                                </label>
-                                <input type="text" class="form-control" id="title" name="title"
-                                    value="{{ post.title|default:'' }}" required>
-                            </div>
-                            {% endif %}
-
-                            {% if 'wine_name' in incomplete_fields %}
-                            <div class="col-md-6 mb-3">
-                                <label for="wine_name" class="form-label">
-                                    <i class="bi bi-cup me-1"></i>Wine Name *
-                                </label>
-                                <input type="text" class="form-control" id="wine_name" name="wine_name"
-                                    value="{{ post.wine_name|default:'' }}" required>
-                            </div>
-                            {% endif %}
 
                             {% if 'vintage_year' in incomplete_fields %}
                             <div class="col-md-6 mb-3">
