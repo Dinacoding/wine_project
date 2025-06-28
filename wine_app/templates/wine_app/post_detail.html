@@ -115,21 +115,7 @@
                                 <input type="number" class="form-control" id="vintage_year" name="vintage_year"
                                     value="{{ post.vintage_year|default:'' }}" min="1800" max="2030" required>
                             </div>
-                            {% endif %}
-
-                            {% if 'status' in incomplete_fields %}
-                            <div class="col-md-6 mb-3">
-                                <label for="status" class="form-label">
-                                    <i class="bi bi-toggle-on me-1"></i>Status *
-                                </label>
-                                <select class="form-control" id="status" name="status" required>
-                                    <option value="">Choose status...</option>
-                                    <option value="0" {% if post.status==0 %}selected{% endif %}>Draft</option>
-                                    <option value="1" {% if post.status==1 %}selected{% endif %}>Published</option>
-                                </select>
-                            </div>
-                            {% endif %}
-
+                            {% endif %}                            
                             {% if 'content' in incomplete_fields %}
                             <div class="col-12 mb-3">
                                 <label for="content" class="form-label">
@@ -187,8 +173,6 @@
         </div>
     </div>
     {% endif %}
-
-    {% empty %}
     <p>No comments yet. Be the first to comment!</p>
     {% endfor %}
 </div>
