@@ -6,21 +6,22 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10"> 
+        <div class="col-lg-8 col-md-10">
             <div class="wine-card post-full-detail-card position-relative">
                 <span class="badge {% if post.status == 1 %}badge-published{% else %}badge-draft{% endif %} status-badge">
                     {% if post.status == 1 %}Published{% else %}Draft{% endif %}
                 </span>
 
                 <div class="card-header-custom mb-3">
-                    <h2 class="wine-title display-4">{{ post.title }}</h2> 
+                    <h2 class="wine-title display-4">{{ post.title }}</h2>
                     <div class="wine-name lead text-muted">{{ post.wine_name }}</div>
                     <span class="vintage-badge">{{ post.vintage_year }}</span>
-                    <p class="text-muted mt-2">By <span class="author-name-detail">{{ post.author}}</span> on {{ post.created_on|date:"F d, Y" }}</p>
+                    <p class="text-muted mt-2">
+                        By <span class="author-name-detail">{{ post.author }}</span> on {{ post.created_on|date:"F d, Y" }}
+                    </p>
                 </div>
 
                 <div class="card-content-full mb-4">
-                    {# Display the FULL content of the post. Use |safe if content is HTML from rich text editor #}
                     {{ post.content|safe }}
                 </div>
 
@@ -31,7 +32,8 @@
 
                     {% if user.is_authenticated and user == post.author %}
                     <div class="user-actions">
-                        <button class="btn btn-delete btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.id }}" title="Delete Post">
+                        <button class="btn btn-delete btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{ post.id }}" title="Delete Post">
                             <i class="bi bi-trash"></i> Delete
                         </button>
                     </div>
@@ -42,14 +44,16 @@
     </div>
 
     {% if user.is_authenticated and user == post.author %}
-    <div class="modal fade delete-modal" id="deleteModal{{ post.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ post.id }}" aria-hidden="true">
+    <div class="modal fade delete-modal" id="deleteModal{{ post.id }}" tabindex="-1"
+        aria-labelledby="deleteModalLabel{{ post.id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel{{ post.id }}">
                         <i class="bi bi-exclamation-triangle me-2"></i> Confirm Delete
                     </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to delete the post <strong>"{{ post.title }}"</strong>?</p>
@@ -69,86 +73,145 @@
     </div>
     {% endif %}
 
-    <div class="row justify-content-center mt-5">
+    <div class="row justify-content-center mt-4">
         <div class="col-lg-8 col-md-10">
-            <h3 class="mb-3">Comments ({{ comments.count }})</h3>
-            <div class="comments-section">
-                {% for comment in comments %}
-                <div class="card mb-3 comment-card">
-                    <div class="card-body">
-                        <p class="card-text">
-                            <strong>{{ comment.author.username }}</strong> on {{ comment.created_on|date:"F d, Y, P" }}
-                            {% if not comment.approved %}
-                            <span class="text-warning small">(Awaiting moderation)</span>
+            <div class="card border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Complete Your Wine Review
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Please complete the following required fields to finalize your wine review:</p>
+                    <form method="post" action="{% url 'update_post' post.slug %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% if 'title' in incomplete_fields %}
+                            <div class="col-md-6 mb-3">
+                                <label for="title" class="form-label">
+                                    <i class="bi bi-card-text me-1"></i>Title *
+                                </label>
+                                <input type="text" class="form-control" id="title" name="title"
+                                    value="{{ post.title|default:'' }}" required>
+                            </div>
                             {% endif %}
-                        </p>
-                        <p class="card-text comment-body">{{ comment.body|linebreaksbr }}</p>
-                        {% if user.is_authenticated and user == comment.author %}
-                        <div class="comment-actions mt-2">
-                            {# You might add an edit comment button here later if you implement it #}
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteCommentModal{{ comment.id }}" title="Delete Comment">
-                                <i class="bi bi-trash"></i> Delete Comment
+
+                            {% if 'wine_name' in incomplete_fields %}
+                            <div class="col-md-6 mb-3">
+                                <label for="wine_name" class="form-label">
+                                    <i class="bi bi-cup me-1"></i>Wine Name *
+                                </label>
+                                <input type="text" class="form-control" id="wine_name" name="wine_name"
+                                    value="{{ post.wine_name|default:'' }}" required>
+                            </div>
+                            {% endif %}
+
+                            {% if 'vintage_year' in incomplete_fields %}
+                            <div class="col-md-6 mb-3">
+                                <label for="vintage_year" class="form-label">
+                                    <i class="bi bi-calendar me-1"></i>Vintage Year *
+                                </label>
+                                <input type="number" class="form-control" id="vintage_year" name="vintage_year"
+                                    value="{{ post.vintage_year|default:'' }}" min="1800" max="2030" required>
+                            </div>
+                            {% endif %}
+
+                            {% if 'status' in incomplete_fields %}
+                            <div class="col-md-6 mb-3">
+                                <label for="status" class="form-label">
+                                    <i class="bi bi-toggle-on me-1"></i>Status *
+                                </label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="">Choose status...</option>
+                                    <option value="0" {% if post.status==0 %}selected{% endif %}>Draft</option>
+                                    <option value="1" {% if post.status==1 %}selected{% endif %}>Published</option>
+                                </select>
+                            </div>
+                            {% endif %}
+
+                            {% if 'content' in incomplete_fields %}
+                            <div class="col-12 mb-3">
+                                <label for="content" class="form-label">
+                                    <i class="bi bi-file-text me-1"></i>Wine Review Content *
+                                </label>
+                                <textarea class="form-control" id="content" name="content" rows="6"
+                                    placeholder="Share your detailed wine tasting notes, impressions, and review..."
+                                    required>{{ post.content|default:'' }}</textarea>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted small">
+                                <i class="bi bi-info-circle me-1"></i>
+                                * Required fields must be completed
+                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="bi bi-check-circle me-1"></i>
+                                Complete Wine Review
                             </button>
                         </div>
-                        {% endif %}
-                    </div>
+                    </form>
                 </div>
-
-                {% if user.is_authenticated and user == comment.author %}
-                <div class="modal fade delete-modal" id="deleteCommentModal{{ comment.id }}" tabindex="-1" aria-labelledby="deleteCommentModalLabel{{ comment.id }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}">
-                                    <i class="bi bi-exclamation-triangle me-2"></i> Confirm Delete Comment
-                                </h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to delete this comment?</p>
-                                <p class="text-muted mb-0">This action cannot be undone.</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <form method="post" action="{% url 'delete_comment' comment.id %}" style="display: inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-confirm-delete">
-                                        <i class="bi bi-trash me-1"></i> Delete
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-
-                {% empty %}
-                <p>No comments yet. Be the first to comment!</p>
-                {% endfor %}
-            </div>
-
-            <div class="card mt-4 p-4 comment-form-card">
-                {% if user.is_authenticated %}
-                <form method="post">
-                    <textarea name="post_id" style="display:none;">{{ post.id }}</textarea>
-                    <textarea name="body" class="form-control" rows="4" placeholder="Leave a comment..."></textarea>
-                    {% csrf_token %}
-                    {% if form.errors %}
-                    <div class="alert alert-danger mt-2">
-                        <ul>
-                            {% for field, errors in form.errors.items %}
-                            <li>{{ field }}: {{ errors|join:", " }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                    <button type="submit" class="btn btn-primary mt-3">Post Comment</button>
-                </form>
-                {% else %}
-                <p>Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
-                {% endif %}
             </div>
         </div>
     </div>
+
+    {% if user.is_authenticated and user == post.author %}
+    <div class="modal fade delete-modal" id="deleteCommentModal{{ comment.id }}" tabindex="-1"
+        aria-labelledby="deleteCommentModalLabel{{ comment.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCommentModalLabel{{ comment.id }}">
+                        <i class="bi bi-exclamation-triangle me-2"></i> Confirm Delete Comment
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this comment?</p>
+                    <p class="text-muted mb-0">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="post" action="{% url 'delete_comment' comment.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-confirm-delete">
+                            <i class="bi bi-trash me-1"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% empty %}
+    <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+</div>
+
+<div class="card mt-4 p-4 comment-form-card">
+    {% if user.is_authenticated %}
+    <form method="post">
+        <textarea name="post_id" style="display:none;">{{ post.id }}</textarea>
+        <textarea name="body" class="form-control" rows="4" placeholder="Leave a comment..."></textarea>
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-danger mt-2">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                <li>{{ field }}: {{ errors|join:", " }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary mt-3">Post it</button>
+    </form>
+    {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> To make a post.</p>
+    {% endif %}
 </div>
 {% endblock %}
