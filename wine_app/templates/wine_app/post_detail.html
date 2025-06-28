@@ -31,10 +31,6 @@
 
                     {% if user.is_authenticated and user == post.author %}
                     <div class="user-actions">
-                        {# Edit button is usually desired on the single post's detail page #}
-                        <a href="{% url 'edit_post' post.slug %}" class="btn btn-outline-success btn-sm" title="Edit Post">
-                            <i class="bi bi-pencil-square"></i> Edit
-                        </a>
                         <button class="btn btn-delete btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ post.id }}" title="Delete Post">
                             <i class="bi bi-trash"></i> Delete
                         </button>
@@ -134,9 +130,18 @@
             <div class="card mt-4 p-4 comment-form-card">
                 {% if user.is_authenticated %}
                 <form method="post">
-                    <input type="hidden" name="post_id" value="{{ post.id }}">  Leave a comment
+                    <textarea name="post_id" style="display:none;">{{ post.id }}</textarea>
+                    <textarea name="body" class="form-control" rows="4" placeholder="Leave a comment..."></textarea>
                     {% csrf_token %}
-                    {{ comment_form.as_p }} {# Renders each form field inside a <p> tag #}
+                    {% if form.errors %}
+                    <div class="alert alert-danger mt-2">
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                            <li>{{ field }}: {{ errors|join:", " }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                     <button type="submit" class="btn btn-primary mt-3">Post Comment</button>
                 </form>
                 {% else %}
