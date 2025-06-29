@@ -110,7 +110,7 @@ def create_post(request):
             return redirect('post_detail', slug=post.slug) # Using 'post_detail' based on previous conversation
     else:
         form = WinePostForm() # <--- CORRECTED THIS LINE
-    return render(request, 'blog/post_form.html', {'form': form, 'page_title': 'Create New Wine Post'})
+    return render(request, 'blog/create_post.html', {'form': form, 'page_title': 'Create New Wine Post'})
 
 
 @login_required
