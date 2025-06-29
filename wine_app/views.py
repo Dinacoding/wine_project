@@ -87,7 +87,17 @@ def delete_post(request, slug):
     messages.warning(request, 'Invalid method for post deletion.')
     return redirect('post_detail', slug=slug)
 
-
+def create_post(request):
+    if request.method == 'POST':
+        form = WinePost(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('post_detail', slug=post.slug)
+    else:
+        form = WinePost() # Initialize an empty form for GET requests
+    return render(request, 'blog/post_form.html', {'form': form, 'page_title': 'Create New Wine Post'})
     
 class PostCreateView(generic.CreateView):
     """
@@ -108,9 +118,9 @@ class UserRegisterView(generic.CreateView):
     """
     View for user registration
     """
-    model = User  # Link to the Django User model
+    model = User  
     template_name = 'wine_app/register.html'
-    form_class = UserRegistrationForm  # <-- This line TELLS the CreateView to use YOUR form
+    form_class = UserRegistrationForm  # 
     success_url = reverse_lazy('login')
     def form_valid(self, form):
         """
