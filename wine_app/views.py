@@ -94,12 +94,7 @@ def PostDetail(request, slug): # Kept your original PostDetail function (capital
 
 @login_required
 def create_post(request):
-    """
-    View for creating a new wine post. Uses 'blog/post_form.html'.
-    NOTE: This view's template path ('blog/post_form.html') is different
-    from most of your other templates ('wine_app/'). Ensure 'post_form.html'
-    is located in 'your_app_name/templates/blog/' (e.g., blog/templates/blog/post_form.html).
-    """
+   
     if request.method == 'POST':
         form = WinePostForm(request.POST) # <--- CORRECTED THIS LINE
         if form.is_valid():
@@ -110,7 +105,7 @@ def create_post(request):
             return redirect('post_detail', slug=post.slug) # Using 'post_detail' based on previous conversation
     else:
         form = WinePostForm() # <--- CORRECTED THIS LINE
-    return render(request, 'blog/create_post.html', {'form': form, 'page_title': 'Create New Wine Post'})
+    return render(request, 'blog/post_form.html', {'form': form, 'page_title': 'Create New Wine Post'})
 
 
 @login_required
