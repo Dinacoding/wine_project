@@ -1,20 +1,24 @@
-from django.shortcuts import render, get_object_or_404
-from django.views import generic, View
-from .models import WinePost
+# blog/views.py - CONSOLIDATED FROM YOUR VERSIONS (FIXED create_post)
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views import generic # Removed 'View' as it's not strictly necessary if generic.View is not used directly
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from .forms import UserRegistrationForm
 from django.contrib.auth.models import User
-from django.shortcuts import redirect   
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.contrib import messages
 
+# Import your forms (ensure WinePostForm is imported!)
+from .forms import WinePostForm, UserRegistrationForm
+from .models import WinePost  # Import the WinePost model
 
+
+# --- Class-Based Views (from your provided code) ---
 
 class UserLoginView(LoginView):
     """
-    View for user login
+    View for user login. Uses 'wine_app/login.html'.
     """
     template_name = 'wine_app/login.html'
     redirect_authenticated_user = True
@@ -24,7 +28,8 @@ class UserLoginView(LoginView):
 
 class BlogListView(generic.ListView):
     """
-    View for displaying list of wine posts in the blog
+    View for displaying list of wine posts in the blog.
+    Uses 'wine_app/blog.html'.
     """
     model = WinePost
     queryset = WinePost.objects.filter(status=1).order_by('-created_on')
@@ -34,25 +39,38 @@ class BlogListView(generic.ListView):
 
 class UserLogoutView(LogoutView):
     """
-    View for user logout
+    View for user logout. Redirects to the blog page after logout.
     """
-    next_page = '/'
-    http_method_names = ['get', 'post']# Redirect to home page after logout
-    
-class PostList(generic.ListView):
+    next_page = reverse_lazy('blog')
+    http_method_names = ['get', 'post']
+
+class UserRegisterView(generic.CreateView):
     """
-    View for displaying list of wine posts
+    View for user registration. Uses 'wine_app/register.html'.
     """
-    model = WinePost
-    queryset = WinePost.objects.filter(status=1).order_by('-created_on')
+    model = User
+    template_name = 'wine_app/register.html'
+    form_class = UserRegistrationForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.save()
+        messages.success(self.request, "Account created successfully! Please log in.")
+        return super().form_valid(form)
+
+class HomeView(generic.TemplateView):
+    """
+    View for the home page. Uses 'wine_app/index.html'.
+    """
     template_name = 'wine_app/index.html'
-    context_object_name = 'wine_posts'
-    paginate_by = 6
 
 
-def PostDetail(request, slug):
+# --- Function-Based Views (from your provided code) ---
+
+def PostDetail(request, slug): # Kept your original PostDetail function (capital P)
     """
-    View for displaying a single wine post  
+    View for displaying a single wine post. Uses 'wine_app/post_detail.html'.
+    Includes logic for incomplete fields as per your original snippet.
     """
     post = get_object_or_404(WinePost, slug=slug)
     incomplete_fields = []
@@ -66,6 +84,7 @@ def PostDetail(request, slug):
     for field_name, field_value in required_fields.items():
         if not field_value or (isinstance(field_value, str) and not field_value.strip()):
             incomplete_fields.append(field_name)
+
     context = {
         'post': post,
         'incomplete_fields': incomplete_fields,
@@ -74,66 +93,42 @@ def PostDetail(request, slug):
 
 
 @login_required
+def create_post(request):
+    """
+    View for creating a new wine post. Uses 'blog/post_form.html'.
+    NOTE: This view's template path ('blog/post_form.html') is different
+    from most of your other templates ('wine_app/'). Ensure 'post_form.html'
+    is located in 'your_app_name/templates/blog/' (e.g., blog/templates/blog/post_form.html).
+    """
+    if request.method == 'POST':
+        form = WinePostForm(request.POST) # <--- CORRECTED THIS LINE
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            messages.success(request, f'Post "{post.title}" created successfully!')
+            return redirect('post_detail', slug=post.slug) # Using 'post_detail' based on previous conversation
+    else:
+        form = WinePostForm() # <--- CORRECTED THIS LINE
+    return render(request, 'blog/post_form.html', {'form': form, 'page_title': 'Create New Wine Post'})
+
+
+@login_required
 def delete_post(request, slug):
+    """
+    View for deleting a wine post. Only the post's author can delete it.
+    """
     post = get_object_or_404(WinePost, slug=slug)
+
     if request.user != post.author:
         messages.error(request, "You don't have permission to delete this post.")
         raise Http404("You don't have permission to delete this post")
+
     if request.method == 'POST':
         post_title = post.title
         post.delete()
         messages.success(request, f'Post "{post_title}" has been deleted successfully.')
         return redirect('blog')
-    messages.warning(request, 'Invalid method for post deletion.')
+
+    messages.warning(request, 'Invalid method for post deletion. Please use the delete button.')
     return redirect('post_detail', slug=slug)
-
-def create_post(request):
-    if request.method == 'POST':
-        form = WinePost(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('post_detail', slug=post.slug)
-    else:
-        form = WinePost() # Initialize an empty form for GET requests
-    return render(request, 'blog/post_form.html', {'form': form, 'page_title': 'Create New Wine Post'})
-    
-class PostCreateView(generic.CreateView):
-    """
-    View for creating a new wine post
-    """
-    model = WinePost
-    template_name = 'wine_app/post_detail.html'
-    fields = ['title', 'wine_name', 'vintage_year', 'content', 'status']
-    
-    def form_valid(self, form):
-        """
-        If the form is valid, save the post and set the author to the current user
-        """
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-class UserRegisterView(generic.CreateView):
-    """
-    View for user registration
-    """
-    model = User  
-    template_name = 'wine_app/register.html'
-    form_class = UserRegistrationForm  # 
-    success_url = reverse_lazy('login')
-    def form_valid(self, form):
-        """
-        If the form is valid, save the user and redirect to the login page
-        """
-        user = form.save()
-        return super().form_valid(form)
-    
-class HomeView(generic.TemplateView):
-    """
-    View for the home page
-    """
-    template_name = 'wine_app/index.html'
-
-
-
