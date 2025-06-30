@@ -32,7 +32,7 @@ class BlogListView(generic.ListView):
     Uses 'wine_app/blog.html'.
     """
     model = WinePost
-    queryset = WinePost.objects.filter(status=1).order_by('-created_on')
+    queryset = WinePost.objects.all().order_by('-updated_on')
     template_name = 'wine_app/blog.html'
     context_object_name = 'wine_posts'
     paginate_by = 6
@@ -41,7 +41,7 @@ class UserLogoutView(LogoutView):
     """
     View for user logout. Redirects to the blog page after logout.
     """
-    next_page = reverse_lazy('blog')
+    next_page = '/'
     http_method_names = ['get', 'post']
 
 class UserRegisterView(generic.CreateView):
@@ -100,13 +100,13 @@ def create_post(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            post.status = 1
             post.save()
             messages.success(request, f'Post "{post.title}" created successfully!')
             return redirect('post_detail', slug=post.slug) # Using 'post_detail' based on previous conversation
     else:
-        form = WinePostForm() # <--- CORRECTED THIS LINE
-    return render(request, 'blog/post_form.html', {'form': form, 'page_title': 'Create New Wine Post'})
-
+        form = WinePostForm()
+    return render(request, 'wine_app/post_form.html', {'form': form})
 
 @login_required
 def delete_post(request, slug):

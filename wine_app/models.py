@@ -22,8 +22,8 @@ class WinePost(models.Model):
     wine_name = models.CharField(max_length=100)
     vintage_year = models.IntegerField()
     content = models.TextField() # Keep as 'content' for the post body
-    status = models.IntegerField(choices=STATUS, default=0)
     created_on = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(choices=STATUS, default=1)
     # Adding updated_on is good practice for posts, auto_now=True updates on every save
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -37,8 +37,26 @@ class WinePost(models.Model):
     def save(self, *args, **kwargs):
         # Automatically set the slug from the title if not provided
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+            
+            # Keep adding numbers until we find a unique slug
+            # Exclude current instance if updating (not creating)
+            queryset = WinePost.objects.filter(slug=slug)
+            if self.pk:  # If updating existing post
+                queryset = queryset.exclude(pk=self.pk)
+            
+            while queryset.exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+                queryset = WinePost.objects.filter(slug=slug)
+                if self.pk:  # If updating existing post
+                    queryset = queryset.exclude(pk=self.pk)
+            
+            self.slug = slug
         super().save(*args, **kwargs)
+        
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={'slug': self.slug})
@@ -59,12 +77,15 @@ class Comment(models.Model):
     """
     post = models.ForeignKey(WinePost, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-    body = models.TextField() 
+    body = models.TextField() # <--- Changed from 'content' to 'body' for consistency
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
 
     class Meta:
+        # Ordering comments from oldest to newest (for chronological display)
+        # Change to ['-created_on'] if you want newest first
         ordering = ['created_on']
 
     def __str__(self):
+        # Now correctly uses 'self.body'
         return f"Comment {self.body[:50]} by {self.author.username}"

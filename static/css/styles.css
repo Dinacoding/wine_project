@@ -5,11 +5,17 @@
     
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
+html, body {
+    height: 100%;
+}
+body{
+    display: flex; 
+    flex-direction: column; 
+    min-height: 100vh; 
+}
+
+main {
+    flex: 1;
 }
 
 header {
@@ -30,19 +36,20 @@ header {
     color: white;
 }
 
-.wine-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
-    height: 65vh;
-    
-    
-}
+
 .wine-container h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
+
+.wine-card{
+    background-color: #1f723c;
+
+}
+.wine-title{
+    color: azure;
+}
+
 footer {
     background-color: #1f723c;
     color: white;
