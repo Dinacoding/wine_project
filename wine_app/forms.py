@@ -49,11 +49,11 @@ class UserRegistrationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         # Add styling to password fields
         self.fields['password1'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-control w-100',
             'placeholder': 'Enter password'
         })
         self.fields['password2'].widget.attrs.update({
-            'class': 'form-control',
+            'class': 'form-control w-100',
             'placeholder': 'Confirm password'
         })
 

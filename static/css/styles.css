@@ -72,12 +72,19 @@ header {
 
 input#id_title,
 input#id_wine_name, 
-input#id_vintage_year { 
+input#id_vintage_year,
+input#id_username,
+input#id_password,
+input#id_email,
+input#id_first_name,
+input#id_last_name,
+input#id_password1,
+input#id_password2 {
     background-color: #ffffff;
     color: rgb(46, 145, 100);
     border: 1px solid #ccc;
     padding: 10px;
-    width: 100%;
+    min-width: 100%;
     border-radius: 5px;
     margin-top: 5px;
     
