@@ -1,76 +1,99 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}{{ post.title }} - Wine Project{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}{{ post.title }} -
+Wine Project{% endblock %} {% block content %}
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="wine-card post-full-detail-card position-relative borderwhite shadow-sm p-4 d-flex flex-column">
-                <div class="card-header-custom mb-3">
-                    <h2 class="wine-title display-4">{{ post.title }}</h2>
-                    <div class="wine-name lead text-muted">{{ post.wine_name }}</div>
-                    <span class="vintage-badge">{{ post.vintage_year }}</span>
-                    <p class="text-muted mt-2">
-                        By <span class="author-name-detail">{{ post.author }}</span> on {{ post.created_on|date:"F d, Y" }}
-                    </p>
-                </div>
-
-                <div class="card-content-full mb-4">
-                    {{ post.content|safe }}
-                </div>
-
-                <div class="card-actions d-flex justify-content-between align-items-center border-top pt-3 mt-auto">
-                    <a href="{% url 'blog' %}" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left-circle me-1"></i> Back to All Posts
-                    </a>
-
-                    {% if user.is_authenticated and user == post.author %}
-                    <div class="user-actions">
-                        <button class="btn btn-delete btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#deleteDetailModal{{ post.id }}" title="Delete Post"> {# Unique ID for detail page modal #}
-                            <i class="bi bi-trash"></i> Delete
-                        </button>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div
+        class="wine-card post-full-detail-card position-relative borderwhite shadow-sm p-4 d-flex flex-column"
+      >
+        <div class="card-header-custom mb-3">
+          <h2 class="wine-title display-4">{{ post.title }}</h2>
+          <div class="wine-name lead text-muted">{{ post.wine_name }}</div>
+          <span class="vintage-badge">{{ post.vintage_year }}</span>
+          <p class="text-muted mt-2">
+            By <span class="author-name-detail">{{ post.author }}</span> on {{
+            post.created_on|date:"F d, Y" }}
+          </p>
         </div>
-    </div>
 
-    {# Delete Post Modal for the detail page #}
-    {% if user.is_authenticated and user == post.author %}
-    <div class="modal fade delete-modal" id="deleteDetailModal{{ post.id }}" tabindex="-1"
-        aria-labelledby="deleteDetailModalLabel{{ post.id }}" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteDetailModalLabel{{ post.id }}">
-                        <i class="bi bi-exclamation-triangle me-2"></i> Confirm Delete
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete the post <strong>"{{ post.title }}"</strong>?</p>
-                    <p class="text-muted mb-0">This action cannot be undone.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form method="post" action="{% url 'delete_post' post.slug %}" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-confirm-delete">
-                            <i class="bi bi-trash me-1"></i> Delete Post
-                        </button>
-                    </form>
-                </div>
-            </div>
+        <div class="card-content-full mb-4">{{ post.content|safe }}</div>
+
+        <div
+          class="card-actions d-flex justify-content-between align-items-center border-top pt-3 mt-auto"
+        >
+          <a href="{% url 'blog' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle me-1"></i> Back to All Posts
+          </a>
+
+          {% if user.is_authenticated and user == post.author %}
+          <div class="user-actions">
+            <button
+              class="btn btn-delete btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteDetailModal{{ post.id }}"
+              title="Delete Post"
+            >
+              {# Unique ID for detail page modal #}
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          </div>
+          {% endif %}
         </div>
+      </div>
     </div>
-    {% endif %}
+  </div>
 
-    {# No comments or related sections as per previous instructions #}
-
+  {# Delete Post Modal for the detail page #} {% if user.is_authenticated and
+  user == post.author %}
+  <div
+    class="modal fade delete-modal"
+    id="deleteDetailModal{{ post.id }}"
+    tabindex="-1"
+    aria-labelledby="deleteDetailModalLabel{{ post.id }}"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteDetailModalLabel{{ post.id }}">
+            <i class="bi bi-exclamation-triangle me-2"></i> Confirm Delete
+          </h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Are you sure you want to delete the post
+            <strong>"{{ post.title }}"</strong>?
+          </p>
+          <p class="text-muted mb-0">This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <form
+            method="post"
+            action="{% url 'delete_post' post.slug %}"
+            style="display: inline"
+          >
+            {% csrf_token %}
+            <button type="submit" class="btn btn-confirm-delete">
+              <i class="bi bi-trash me-1"></i> Delete Post
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 </div>
 {% endblock %}

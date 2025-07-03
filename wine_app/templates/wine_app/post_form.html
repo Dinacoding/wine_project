@@ -1,56 +1,57 @@
-{% extends 'base.html' %}
-{% load static %}
-
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="card p-4 wine-post-form-card wine-post-form-card-bg">
-                <h2 class="card-title text-center mb-4">
-                        <i class="fas fa-wine-glass-alt me-2"></i>Wine Project Posts
-                    </h2>
-                {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                        {% endfor %}
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="mb-3 label-form">
-                                {{ field.label_tag }}
-                            {{ field }}
-                            {% if field.help_text %}
-                                <div class="form-text text-muted">{{ field.help_text }}</div>
-                            {% endif %}
-                            {% for error in field.errors %}
-                                <div class="alert alert-danger mt-1">{{ error }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-
-                    {# Non-field errors (e.g., from clean method in form) #}
-                    {% if form.non_field_errors %}
-                        <div class="alert alert-danger">
-                            {% for error in form.non_field_errors %}
-                                <p>{{ error }}</p>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    <button type="submit" class="btn btn-primary mt-3">
-                        {% if post %}Update Wine Post{% else %}Create Wine Post{% endif %} {# Button text changes #}
-                    </button>
-
-                    {# Cancel button logic #}
-                    <a href="{% if post %}{% url 'post_detail' slug=post.slug %}{% else %}{% url 'blog' %}{% endif %}" class="btn btn-secondary mt-3 ms-2">
-                        Cancel
-                    </a>
-                </form>
-            </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card p-4 wine-post-form-card wine-post-form-card-bg">
+        <h2 class="card-title text-center mb-4">
+          <i class="fas fa-wine-glass-alt me-2"></i>Wine Project Posts
+        </h2>
+        {% for message in messages %}
+        <div
+          class="alert alert-{{ message.tags }} alert-dismissible fade show"
+          role="alert"
+        >
+          {{ message }}
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+          ></button>
         </div>
+        {% endfor %}
+        <form method="post">
+          {% csrf_token %} {% for field in form %}
+          <div class="mb-3 label-form">
+            {{ field.label_tag }} {{ field }} {% if field.help_text %}
+            <div class="form-text text-muted">{{ field.help_text }}</div>
+            {% endif %} {% for error in field.errors %}
+            <div class="alert alert-danger mt-1">{{ error }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %} {# Non-field errors (e.g., from clean method in form) #}
+          {% if form.non_field_errors %}
+          <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          <button type="submit" class="btn btn-primary mt-3">
+            {% if post %}Update Wine Post{% else %}Create Wine Post{% endif %}
+            {# Button text changes #}
+          </button>
+
+          {# Cancel button logic #}
+          <a
+            href="{% if post %}{% url 'post_detail' slug=post.slug %}{% else %}{% url 'blog' %}{% endif %}"
+            class="btn btn-secondary mt-3 ms-2"
+          >
+            Cancel
+          </a>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}
