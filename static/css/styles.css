@@ -5,10 +5,10 @@ root {
     --text-dark: #333; /* General dark text color */
     --accent-color: azure; /* Specific accent color for wine titles */
     --input-bg: #ffffff; /* Background for input fields */
-    --input-color: rgb(46, 145, 100); /* Text color for input fields */
+    --input-color: #2e9164; /* Text color for input fields */
     --input-border: #ccc; /* Border color for input fields */
-    --shadow-dark: rgba(0, 0, 0, 0.3); /* Darker shadow for hover */
-    --shadow-light: rgba(0, 0, 0, 0.2); /* Lighter shadow for default state */
+    --shadow-dark: #0000004d; /* Darker shadow for hover */
+    --shadow-light: #00000033; /* Lighter shadow for default state */
 }
 * {
     margin: 0;
@@ -128,4 +128,139 @@ footer {
 
 .wine-post-form-card-bg{
     background-color: var(--secondary-color);
+}
+
+/* 
+   Media Queries for Responsiveness
+*/
+
+@media (max-width: 575.98px) {
+    /* Base font size for very small screens */
+    body {
+        font-size: 14px; 
+    }
+
+    .logo {
+        font-size: 1.8rem; 
+    }
+
+    .wine-container h1 {
+        font-size: 2rem; 
+    }
+
+    /* You might also want to scale card titles/text */
+    .wine-card .card-title { 
+        font-size: 1.3rem;
+    }
+    .wine-card .card-text { 
+        font-size: 0.9rem;
+    }
+
+    .container.wine-container.text-center {
+        height: auto;
+        padding: 30px 15px;
+    }
+
+    .footer-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-info p {
+        margin-bottom: 10px;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    /* Slightly larger base font size for small screens */
+   
+    body {
+        font-size: 15px;
+    }
+    .logo {
+        font-size: 2rem; 
+
+    .wine-container h1 {
+        font-size: 2.2rem; 
+    }
+
+    .wine-card .card-title {
+        font-size: 1.4rem;
+    }
+    .wine-card .card-text {
+        font-size: 1rem;
+    }
+
+    .footer-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    /* Even larger base font size for tablets */
+    body {
+        font-size: 16px; 
+    }
+    .logo {
+        font-size: 2.1rem; 
+    }
+
+    .wine-container h1 {
+        font-size: 2.3rem;
+    }
+
+    .wine-card .card-title {
+        font-size: 1.5rem;
+    }
+    .wine-card .card-text {
+        font-size: 1rem;
+    }
+
+    .footer-info {
+        flex-direction: row;
+    }
+}
+
+/* Large devices (desktops, 992px and up) - Default styles generally apply here */
+@media (min-width: 992px) {
+    body {
+        font-size: 16px; 
+    }
+    .logo {
+        font-size: 2.2rem; 
+    }
+    .wine-container h1 {
+        font-size: 2.5rem; 
+    }
+    .wine-card .card-title {
+        font-size: 1.6rem; 
+    }
+    .wine-card .card-text {
+        font-size: 1rem; 
+    }
+    
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    body {
+        font-size: 17px; /
+    }
+    .logo {
+        font-size: 2.4rem;
+    }
+    .wine-container h1 {
+        font-size: 2.8rem;
+    }
+    .wine-card .card-title {
+        font-size: 1.7rem;
+    }
+    .wine-card .card-text {
+        font-size: 1.1rem; 
+    }
 }
