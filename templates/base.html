@@ -1,5 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
+<!-- Base template for the Wine Project website -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,17 +16,6 @@
     <meta name="author" content="Amandio Dinarte Orepolo" />
     <title>{% block head_title %}Wine Project{% endblock head_title %}</title>
 
-    {# Favicon #}
-    <link
-      rel="icon"
-      href="{% static 'images/favicon.ico' %}"
-      type="image/x-icon"
-    />
-    <link
-      rel="shortcut icon"
-      href="{% static 'images/favicon.ico' %}"
-      type="image/x-icon"
-    />
     {# Added for broader compatibility #} {# Font Awesome #}
     <link
       rel="stylesheet"
@@ -46,8 +36,10 @@
     {# Custom CSS - Place after Bootstrap to allow overrides #}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 
-    {% block extra_head %} {# child templates that allow css#} {% endblock
-    extra_head %}
+    {# Additional styles for child templates #}
+    {% block styles %} {% endblock styles %}
+
+    {# JavaScript for dynamic year in footer #}
   </head>
   <style>
     body {

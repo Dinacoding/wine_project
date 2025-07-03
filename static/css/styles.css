@@ -1,3 +1,15 @@
+root {
+    --primary-color: #1f723c; /* Dark green for header/footer */
+    --secondary-color: #28a745; /* green for wine cards/elements */
+    --text-light: white; /* General light text color */
+    --text-dark: #333; /* General dark text color */
+    --accent-color: azure; /* Specific accent color for wine titles */
+    --input-bg: #ffffff; /* Background for input fields */
+    --input-color: rgb(46, 145, 100); /* Text color for input fields */
+    --input-border: #ccc; /* Border color for input fields */
+    --shadow-dark: rgba(0, 0, 0, 0.3); /* Darker shadow for hover */
+    --shadow-light: rgba(0, 0, 0, 0.2); /* Lighter shadow for default state */
+}
 * {
     margin: 0;
     padding: 0;
@@ -19,10 +31,12 @@ main {
 }
 
 header {
-    background-color: #1f723c;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-light);
     padding: 10px 20px;
 }
+
+/* Home Page - Wine Container Styles */
 
 .container.wine-container.text-center {
     display: flex;
@@ -33,12 +47,12 @@ header {
 }
 
 .container h1 , .container p{
-    color: white;
+    color: var(--text-light);
 }
 
 .logo{
     font-size: 2.2rem;
-    color: white;
+    color: var(--text-light);
     font-weight: lighter;
 }
 
@@ -46,29 +60,31 @@ header {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
-
+/* Wine Card Styles (Blog Posts) */
 .wine-card {
-    border: none; 
-    border-radius: 12px; 
-    overflow: hidden; 
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer; 
-    background-color: #28a745; 
-    color: white; 
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
-    min-height: 350px; 
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    box-shadow: 0 6px 12px var(--shadow-dark);
+    min-height: 350px;
     display: flex;
     flex-direction: column;
 }
 .wine-title{
-    color: azure;
+    color: var(--accent-color)  !important;
+    font-size: 1.5rem;
 }
 
 
 .wine-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 12px 24px var(--shadow-dark);
 }
+/* Form Input Styles (for specific IDs) */
 
 input#id_title,
 input#id_wine_name, 
@@ -80,9 +96,9 @@ input#id_first_name,
 input#id_last_name,
 input#id_password1,
 input#id_password2 {
-    background-color: #ffffff;
-    color: rgb(46, 145, 100);
-    border: 1px solid #ccc;
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    border: 1px solid var(--input-border);
     padding: 10px;
     min-width: 100%;
     border-radius: 5px;
@@ -90,9 +106,9 @@ input#id_password2 {
     
 }
 textarea{
-    background-color: #ffffff;
-    color: rgb(46, 145, 100);
-    border: 1px solid #ccc;
+    background-color: var(--input-bg);
+    color: var(--input-color);
+    border: 1px solid var(--input-border);
     padding: 10px;
     width: 100%;
     height: 100px;
@@ -100,8 +116,8 @@ textarea{
 }
 
 footer {
-    background-color: #1f723c;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-light);
     padding: 20px;
 }
 .footer-info {
@@ -111,5 +127,5 @@ footer {
 }
 
 .wine-post-form-card-bg{
-    background-color: green;
+    background-color: var(--secondary-color);
 }

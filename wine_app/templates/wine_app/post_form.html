@@ -1,4 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}{% if post %}Delete Wine Post{% else %}Create Wine Post{% endif %}{% endblock %} 
+
+
+{% block content %}
 <div class="container mt-5 mb-5">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10">
