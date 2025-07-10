@@ -127,3 +127,25 @@ def delete_post(request, slug):
 
     messages.warning(request, 'Invalid method for post deletion. Please use the delete button.')
     return redirect('post_detail', slug=slug)
+
+@login_required
+def edit_post(request, slug):
+    """
+    View for editing a wine post. Only the post's author can edit it.
+    """
+    post = get_object_or_404(WinePost, slug=slug)
+
+    if request.user != post.author:
+        messages.error(request, "You don't have permission to edit this post.")
+        raise Http404("You don't have permission to edit this post")
+
+    if request.method == 'POST':
+        form = WinePostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Post "{post.title}" updated successfully!')
+            return redirect('post_detail', slug=post.slug)
+    else:
+        form = WinePostForm(instance=post)
+
+    return render(request, 'wine_app/post_form.html', {'form': form})
