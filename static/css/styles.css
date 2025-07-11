@@ -1,29 +1,17 @@
-:root{
-    --primary-color: #1f723c; /* Dark green for header/footer */
-    --secondary-color: #28a745; /* green for wine cards/elements */
-    --text-light: white; /* General light text color */
-    --text-dark: #333; /* General dark text color */
-    --accent-color: azure; /* Specific accent color for wine titles */
-    --input-bg: #ffffff; /* Background for input fields */
-    --input-color: #2e9164; /* Text color for input fields */
-    --input-border: #ccc; /* Border color for input fields */
-    --shadow-dark: #0000004d; /* Darker shadow for hover */
-    --shadow-light: #00000033; /* Lighter shadow for default state */
-}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
 html, body {
     height: 100%;
 }
-body{
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh; 
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 main {
@@ -31,13 +19,12 @@ main {
 }
 
 header {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: #1f723c; /* Dark Green */
+    color: white;
     padding: 10px 20px;
 }
 
 /* Home Page - Wine Container Styles */
-
 .container.wine-container.text-center {
     display: flex;
     flex-direction: column;
@@ -46,13 +33,13 @@ header {
     height: 75vh;
 }
 
-.container h1 , .container p{
-    color: var(--text-light);
+.container h1, .container p {
+    color: white;
 }
 
-.logo{
+.logo {
     font-size: 2.2rem;
-    color: var(--text-light);
+    color: white;
     font-weight: lighter;
 }
 
@@ -60,34 +47,35 @@ header {
     font-size: 2.5rem;
     margin-bottom: 20px;
 }
+
 /* Wine Card Styles (Blog Posts) */
 .wine-card {
     border: none;
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer; 
-    background-color: red;
-    color: var(--text-light);
-    box-shadow: 0 6px 12px var(--shadow-dark);
+    cursor: pointer;
+    background-color: #28a745; /* Green */
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Transparent Black */
     min-height: 350px;
     display: flex;
     flex-direction: column;
 }
-.wine-title{
-    color: var(--accent-color)  !important;
+
+.wine-title {
+    color: azure !important;
     font-size: 1.5rem;
 }
 
-
 .wine-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 24px var(--shadow-dark);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Transparent Black */
 }
-/* Form Input Styles (for specific IDs) */
 
+/* Form Input Styles (for specific IDs) */
 input#id_title,
-input#id_wine_name, 
+input#id_wine_name,
 input#id_vintage_year,
 input#id_username,
 input#id_password,
@@ -96,19 +84,19 @@ input#id_first_name,
 input#id_last_name,
 input#id_password1,
 input#id_password2 {
-    background-color: var(--input-bg);
-    color: var(--input-color);
-    border: 1px solid var(--input-border);
+    background-color: #ffffff; /* White */
+    color: #2e9164; /* Darker Green */
+    border: 1px solid #ccc; /* Light Gray */
     padding: 10px;
-    min-width: 100%;
+    width: 100%;
     border-radius: 5px;
     margin-top: 5px;
-    
 }
-textarea{
-    background-color: var(--input-bg);
-    color: var(--input-color);
-    border: 1px solid var(--input-border);
+
+textarea {
+    background-color: #ffffff; /* White */
+    color: #2e9164; /* Darker Green */
+    border: 1px solid #ccc; /* Light Gray */
     padding: 10px;
     width: 100%;
     height: 100px;
@@ -116,43 +104,40 @@ textarea{
 }
 
 footer {
-    background-color: var(--primary-color);
-    color: var(--text-light);
+    background-color: #1f723c; /* Dark Green */
+    color: white;
     padding: 20px;
 }
+
 .footer-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.wine-post-form-card-bg{
-    background-color: var(--secondary-color);
+.wine-post-form-card-bg {
+    background-color: #28a745; /* Green */
 }
 
-/* 
-   Media Queries for Responsiveness
-*/
-
+/* Media Queries for Responsiveness */
 @media (max-width: 575.98px) {
-    /* Base font size for very small screens */
     body {
-        font-size: 14px; 
+        font-size: 14px;
     }
 
     .logo {
-        font-size: 1.8rem; 
+        font-size: 1.8rem;
     }
 
     .wine-container h1 {
-        font-size: 2rem; 
+        font-size: 2rem;
     }
 
-    /* You might also want to scale card titles/text */
-    .wine-card .card-title { 
+    .wine-card .card-title {
         font-size: 1.3rem;
     }
-    .wine-card .card-text { 
+
+    .wine-card .card-text {
         font-size: 0.9rem;
     }
 
@@ -173,21 +158,22 @@ footer {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-    /* Slightly larger base font size for small screens */
-   
     body {
         font-size: 15px;
     }
+
     .logo {
-        font-size: 2rem; 
+        font-size: 2rem;
     }
+
     .wine-container h1 {
-        font-size: 2.2rem; 
+        font-size: 2.2rem;
     }
 
     .wine-card .card-title {
         font-size: 1.4rem;
     }
+
     .wine-card .card-text {
         font-size: 1rem;
     }
@@ -196,17 +182,16 @@ footer {
         flex-direction: column;
         text-align: center;
     }
-
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-    /* Even larger base font size for tablets */
     body {
-        font-size: 16px; 
+        font-size: 16px;
     }
+
     .logo {
-        font-size: 2.1rem; 
+        font-size: 2.1rem;
     }
 
     .wine-container h1 {
@@ -216,6 +201,7 @@ footer {
     .wine-card .card-title {
         font-size: 1.5rem;
     }
+
     .wine-card .card-text {
         font-size: 1rem;
     }
@@ -225,41 +211,48 @@ footer {
     }
 }
 
-/* Large devices (desktops, 992px and up) - Default styles generally apply here */
+/* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     body {
-        font-size: 16px; 
+        font-size: 16px;
     }
+
     .logo {
-        font-size: 2.2rem; 
+        font-size: 2.2rem;
     }
+
     .wine-container h1 {
-        font-size: 2.5rem; 
+        font-size: 2.5rem;
     }
+
     .wine-card .card-title {
-        font-size: 1.6rem; 
+        font-size: 1.6rem;
     }
+
     .wine-card .card-text {
-        font-size: 1rem; 
+        font-size: 1rem;
     }
-    
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     body {
-        font-size: 17px; /
+        font-size: 17px;
     }
+
     .logo {
         font-size: 2.4rem;
     }
+
     .wine-container h1 {
         font-size: 2.8rem;
     }
+
     .wine-card .card-title {
         font-size: 1.7rem;
     }
+
     .wine-card .card-text {
-        font-size: 1.1rem; 
+        font-size: 1.1rem;
     }
 }
