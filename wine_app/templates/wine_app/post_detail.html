@@ -37,6 +37,14 @@
               {# Unique ID for detail page modal #}
               <i class="bi bi-trash"></i> Delete
             </button>
+            <button
+              class="btn btn-edit btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#editPostModal{{ post.id }}"
+              title="Edit Post"
+            >
+              <i class="bi bi-pencil"></i> Edit
+            </button>
           </div>
           {% endif %}
         </div>

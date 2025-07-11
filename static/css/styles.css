@@ -1,4 +1,4 @@
-root {
+:root{
     --primary-color: #1f723c; /* Dark green for header/footer */
     --secondary-color: #28a745; /* green for wine cards/elements */
     --text-light: white; /* General light text color */
@@ -67,7 +67,7 @@ header {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer; 
-    background-color: var(--secondary-color);
+    background-color: red;
     color: var(--text-light);
     box-shadow: 0 6px 12px var(--shadow-dark);
     min-height: 350px;
@@ -180,7 +180,7 @@ footer {
     }
     .logo {
         font-size: 2rem; 
-
+    }
     .wine-container h1 {
         font-size: 2.2rem; 
     }
@@ -197,7 +197,6 @@ footer {
         text-align: center;
     }
 
-    }
 }
 
 /* Medium devices (tablets, 768px and up) */
