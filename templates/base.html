@@ -35,6 +35,18 @@
     {# Custom CSS - Place after Bootstrap to allow overrides #}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 
+    {# Favicon - Ensure you have a favicon.ico in your static files #}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        color: #333;
+        height: 100vh;
+        background: url("{% static 'images/background.jpg' %}") no-repeat center
+          center fixed;
+        background-size: cover;
+      }
+    </style>
   </head>
   <body>
     {# Accessibility: Skip to main content link for screen readers #}
