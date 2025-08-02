@@ -59,7 +59,7 @@
       >
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'home' %}"
-            ><span class="logo logo-letter">Wine Project</span></a
+            ><img src="{% static 'images/pictures/logo.svg' %}" alt="Wine Project Logo" class="logo"></a
           >
           <button
             class="navbar-toggler"
@@ -158,7 +158,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-
     {# Your main JavaScript file - Load after Bootstrap JS #}
     <script src="{% static 'js/script.js' %}"></script>
   </body>
