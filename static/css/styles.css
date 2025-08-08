@@ -25,7 +25,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 75vh;
+    height: 65vh;
 }
 
 .container h1, .container p {
@@ -132,7 +132,6 @@ footer {
     }
 
     .container.wine-container.text-center {
-        height: auto;
         padding: 30px 15px;
     }
 
