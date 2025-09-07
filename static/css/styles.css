@@ -32,6 +32,8 @@ main {
     justify-content: center;
     align-items: center;
     padding: 20px;
+    height: fit-content;
+    overflow-y: none;
 }
 
 /* General Styles */
@@ -49,7 +51,7 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+    height: fit-content;
 }
 
 .container h1,
@@ -211,7 +213,7 @@ footer {
     }
 
     .logo {
-        font-size: 2.1rem;
+        width: 150px;
     }
 
     .wine-container h1 {
@@ -237,14 +239,6 @@ footer {
         font-size: 16px;
     }
 
-    #main-content {
-        min-height: 600px;
-    }
-
-    .logo {
-        width: 200px;
-    }
-
     .wine-container h1 {
         font-size: 2.5rem;
     }
@@ -265,7 +259,7 @@ footer {
     }
 
     .logo {
-        width: 250px;
+        width: 175px;
     }
 
     .main-container {

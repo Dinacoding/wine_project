@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic # Removed 'View' as it's not strictly necessary if generic.View is not used directly
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView 
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -64,6 +64,26 @@ class HomeView(generic.TemplateView):
     """
     template_name = 'wine_app/index.html'
 
+class EditPostView(generic.UpdateView):
+    """
+    View for editing a wine post. Uses 'wine_app/edit_post.html'.
+    """
+    model = WinePost
+    form_class = WinePostForm
+    template_name = 'wine_app/edit_post.html'
+    context_object_name = 'post'
+
+    def get_success_url(self):
+        messages.success(self.request, f'Post "{self.object.title}" updated successfully!')
+        return reverse_lazy('post_detail', kwargs={'slug': self.object.slug})
+
+    def dispatch(self, request, *args, **kwargs):
+        post = self.get_object()
+        if request.user != post.author:
+            messages.error(request, "You don't have permission to edit this post.")
+            raise Http404("You don't have permission to edit this post")
+        return super().dispatch(request, *args, **kwargs)
+
 
 # --- Function-Based Views (from your provided code) ---
 
@@ -90,6 +110,8 @@ def PostDetail(request, slug): # Kept your original PostDetail function (capital
         'incomplete_fields': incomplete_fields,
     }
     return render(request, 'wine_app/post_detail.html', context)
+
+
 
 
 @login_required
@@ -130,9 +152,6 @@ def delete_post(request, slug):
 
 @login_required
 def edit_post(request, slug):
-    """
-    View for editing a wine post. Only the post's author can edit it.
-    """
     post = get_object_or_404(WinePost, slug=slug)
 
     if request.user != post.author:
@@ -148,4 +167,4 @@ def edit_post(request, slug):
     else:
         form = WinePostForm(instance=post)
 
-    return render(request, 'wine_app/post_form.html', {'form': form})
+    return render(request, 'wine_app/edit_post.html', {'form': form})
