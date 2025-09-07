@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', views.UserRegisterView.as_view(), name='register'),
     path('login/', views.UserLoginView.as_view(), name='login'),
     path('logout/', views.UserLogoutView.as_view(), name='logout'),
+    path('editpost/', views.EditPostView.as_view(), name='edit_post'),
 
     # Post Management (Function-Based Views)
     path('post/create/', views.create_post, name='create_post'),

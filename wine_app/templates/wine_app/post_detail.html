@@ -1,19 +1,19 @@
 {% extends 'base.html' %} 
 {% load static %} {% block title %}{{ post.title }} - Wine Project {% endblock %} 
 {% block content %}
-<div class="container mt-5 bg-white p-4 rounded shadow-sm">
+<div class="container mt-5 p-4 rounded shadow-sm">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10">
       <div 
-        class="wine-card post-full-detail-card position-relative borderwhite shadow-sm p-4 d-flex flex-column"
+        class="wine-card post-full-detail-card position-relative borderwhite shadow-sm p-4 d-flex bg-success flex-column"
       >
         <div class="card-header-custom mb-3">
-          <h2 class="wine-title display-4">{{ post.title }}</h2>
-          <div class="wine-name lead text-muted">{{ post.wine_name }}</div>
+          <h2 class="wine-title text-white display-4">{{ post.title }}</h2>
+          <p class="wine-name lead text-muted">{{ post.wine_name }}</p>
           <span class="vintage-badge">{{ post.vintage_year }}</span>
           <p class="text-muted mt-2">
-            By <span class="author-name-detail">{{ post.author }}</span> on {{
-            post.created_on|date:"F d, Y" }}
+            By <span class="author-name-detail">{{ post.author }}</span> | Published on {{ post.created_at|date:"F j, Y" }}
+            {% if post.created_at != post.updated_at %} (Updated on {{ post.updated_at|date:"F j, Y" }}) {% endif %}
           </p>
         </div>
 
@@ -34,7 +34,6 @@
               data-bs-target="#deleteDetailModal{{ post.id }}"
               title="Delete Post"
             >
-              {# Unique ID for detail page modal #}
               <i class="bi bi-trash"></i> Delete
             </button>
             <button
@@ -53,35 +52,46 @@
   </div>
     {% if user.is_authenticated and user == post.author %}
   <!-- Edit Post Modal for the detail page -->
-  <div class="modal fade edit-modal"
-       id="editPostModal{{ post.id }}"
-       tabindex="-1"
-       aria-labelledby="editPostModalLabel{{ post.id }}"
-       aria-hidden="true">
-    <div class="modal-dialog">
+  <div class="modal fade" id="editPostModal{{ post.id }}" tabindex="-1" aria-labelledby="editPostModalLabel{{ post.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="editPostModalLabel{{ post.id }}">
-            <i class="bi bi-pencil me-2"></i> Edit Post
+            <i class="bi bi-pencil me-2"></i> Edit Wine Post
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form method="post" action="{% url 'edit_post' post.slug %}">
+          <form method="post" action="{% url 'edit_post' %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+            <div class="mb-3">
+              <label for="id_title" class="form-label">Title</label>
+              <input type="text" name="title" class="form-control" id="id_title" value="{{ post.title }}" required>
+            </div>
+            <div class="mb-3">
+              <label for="id_wine_name" class="form-label">Wine Name</label>
+              <input type="text" name="wine_name" class="form-control" id="id_wine_name" value="{{ post.wine_name }}" required>
+            </div>
+            <div class="mb-3">
+              <label for="id_vintage_year" class="form-label">Vintage Year</label>
+              <input type="number" name="vintage_year" class="form-control" id="id_vintage_year" value="{{ post.vintage_year }}" required>
+            </div>
+            <div class="mb-3">
+              <label for="id_content" class="form-label">Content</label>
+              <textarea name="content" class="form-control" id="id_content" rows="5" required>{{ post.content }}</textarea> 
+            </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">
-                <i class="bi bi-pencil me-1"></i> Save Changes
-              </button>
+              <button type="submit" class="btn btn-success">
+                <i class="bi bi-save me-1"></i> Save Changes
+              </button> 
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
   <!-- Delete Post Modal for the detail page -->
   <div class="modal fade delete-modal"
        id="deleteDetailModal{{ post.id }}"

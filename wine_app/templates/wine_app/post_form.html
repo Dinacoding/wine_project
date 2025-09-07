@@ -1,7 +1,8 @@
 {% extends 'base.html' %} 
 {% load static %} 
-{% block title %}{% if post %}Delete Wine Post{% else %}Create Wine Post{% endif %}{% endblock %} 
-
+{% block title %}
+{% if post %}Edit{% else %}Create{% endif %} Delete Wine Post
+{% endblock title %}
 
 {% block content %}
 <div class="container mt-5 mb-5">
@@ -33,7 +34,7 @@
             <div class="alert alert-danger mt-1">{{ error }}</div>
             {% endfor %}
           </div>
-          {% endfor %} {# Non-field errors (e.g., from clean method in form) #}
+          {% endfor %}
           {% if form.non_field_errors %}
           <div class="alert alert-danger">
             {% for error in form.non_field_errors %}
@@ -42,12 +43,9 @@
           </div>
           {% endif %}
 
-          <button type="submit" class="btn btn-primary mt-3">
+          <button type="submit" class="btn btn-success mt-3">
             {% if post %}Update Wine Post{% else %}Create Wine Post{% endif %}
-            {# Button text changes #}
           </button>
-
-          {# Cancel button logic #}
           <a
             href="{% if post %}{% url 'post_detail' slug=post.slug %}{% else %}{% url 'blog' %}{% endif %}"
             class="btn btn-secondary mt-3 ms-2"

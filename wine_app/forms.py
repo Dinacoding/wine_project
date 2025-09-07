@@ -6,9 +6,24 @@ from django.contrib.auth.models import User
 class WinePostForm(forms.ModelForm):
     class Meta:
         model = WinePost
-        fields = ['title', 'wine_name', 'vintage_year', 'content', 'status']
+        fields = ['title', 'wine_name', 'vintage_year', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter post title'}),
+            'wine_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter wine name'}),
+            'vintage_year': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'e.g. 2015'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Write your post here...'}),
+        }
 
-
+class winePostEditForm(forms.ModelForm):
+    class Meta:
+        model = WinePost
+        fields = ['title', 'wine_name', 'vintage_year', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter post title'}),
+            'wine_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter wine name'}),
+            'vintage_year': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'e.g. 2015'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Update your post here...'}),
+        }
 
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(
@@ -66,33 +81,3 @@ class UserRegistrationForm(UserCreationForm):
             user.save()
         return user
 
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['bio']
-        widgets = {
-            'bio': forms.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Tell us about yourself',
-                'rows': 4
-            })
-        }
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['body']
-        widgets = {
-            'body': forms.Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Leave a comment...',
-                'rows': 4
-            })
-        }
-        labels = {
-            'body': '' # No label for the text area
-        }
