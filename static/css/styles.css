@@ -1,64 +1,52 @@
-* {
-    border: 20px solid red !important;
-    margin: 0 !important;
-    padding: 0 !important;
+/* COMPLETE FOOTER FIX - Replace your entire styles.css with this */
+
+/* Reset and force proper structure */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    /* Background image is set inline in your template - that's fine */
 }
 
-/* If you're using Bootstrap or have wrapper divs, add this */
-.wrapper,
-.main-wrapper,
-.page-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Apply flex-grow to the container div instead of main */
-.container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
-}
-
-.main-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    overflow-y: none;
-}
-
-/* General Styles */
-
+/* Force header to stay at top */
 header {
-    background-color: #1f723c;
-    /* Dark Green */
+    flex-shrink: 0 !important;
+    background-color: #1f723c !important;
     color: white;
     padding: 10px 20px;
 }
 
+/* Main content area - this is the key fix */
+main, #main-content {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important; /* This prevents overflow */
+}
+
+/* Force footer to bottom */
+footer {
+    flex-shrink: 0 !important;
+    background-color: #1f723c !important;
+    color: white !important;
+    padding: 20px 0 !important;
+    width: 100% !important;
+}
+
 /* Home Page - Wine Container Styles */
-.container .wine-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+.container.wine-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    height: auto !important;
 }
 
 .container h1,
@@ -83,10 +71,8 @@ header {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     background-color: #28a745;
-    /* Green */
     color: white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    /* Transparent Black */
     min-height: 350px;
     display: flex;
     flex-direction: column;
@@ -100,24 +86,19 @@ header {
 .wine-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-    /* Transparent Black */
 }
 
-/* Form Input Styles (for specific IDs) */
+/* Form Input Styles */
 input#id_username,
 input#id_password,
 input#id_email,
 input#id_first_name,
 input#id_last_name,
 input#id_password1,
-input#id_password2
-{
+input#id_password2 {
     background-color: #ffffff;
-    /* White */
     color: #2e9164;
-    /* Darker Green */
     border: 1px solid #ccc;
-    /* Light Gray */
     padding: 10px;
     width: 100%;
     border-radius: 5px;
@@ -133,26 +114,11 @@ input#id_password2
     color: #444;
 }
 
-footer {
-    background-color: #1f723c;
-    /* Dark Green */
-    color: white;
-    padding: 20px;
-    /* Increased top and bottom padding */
-    margin-top: auto;
-    min-height: 150px;
-    /* This ensures a minimum height for the footer */
-}
-
 .footer-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.wine-post-form-card-bg {
-    background-color: #28a745;
-    /* Green */
+    width: 100%;
 }
 
 /* Media Queries for Responsiveness */
@@ -160,7 +126,6 @@ footer {
     body {
         font-size: 14px;
     }
-
 
     .wine-container h1 {
         font-size: 2rem;
@@ -188,12 +153,10 @@ footer {
     }
 }
 
-/* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
     body {
         font-size: 15px;
     }
-
 
     .wine-container h1 {
         font-size: 2.2rem;
@@ -213,7 +176,6 @@ footer {
     }
 }
 
-/* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
     body {
         font-size: 16px;
@@ -240,7 +202,6 @@ footer {
     }
 }
 
-/* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
     body {
         font-size: 16px;
@@ -259,14 +220,9 @@ footer {
     }
 }
 
-/* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     body {
         font-size: 17px;
-    }
-
-    .main-container {
-        min-height: 660px;
     }
 
     .wine-container h1 {

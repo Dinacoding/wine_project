@@ -41,7 +41,6 @@
         background-image: url('{% static "images/background.jpg" %}');
         background-size: cover;
         background-repeat: no-repeat;
-        background-attachment: fixed;
     }
     </style>
 
@@ -107,7 +106,7 @@
       </nav>
     </header>
 
-    <main id="main-content" class="container mt-4">
+    <main id="main-content">
       {% block content %} {% endblock content %}
     </main>
 
