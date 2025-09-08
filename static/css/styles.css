@@ -225,6 +225,11 @@ input#id_password2 {
         font-size: 17px;
     }
 
+    .login-card{
+        height: 100%;
+    }
+
+
     .wine-container h1 {
         font-size: 2.8rem;
     }
@@ -235,5 +240,9 @@ input#id_password2 {
 
     .wine-card .card-text {
         font-size: 1.1rem;
+    }
+    .login-card{
+        width: 650px;
+        height: 650px;
     }
 }
