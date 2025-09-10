@@ -18,7 +18,7 @@
 | Required field validation | Try to save a `WinePost` without setting `author` | Validation error is raised |
 | Cascade edit behaviour | Edit the `Wine_post` linked to a `User` | The logged in user can edit the post ( duet to the EditWinePost.view and respective url)|
 | Footer contains social links and direct you to an external tab| Yes | It results as expected|
-|
+
 
 
 ### Login and log out testing 
