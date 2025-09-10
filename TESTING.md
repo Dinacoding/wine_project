@@ -29,3 +29,42 @@
 
 
 ### Mobile
+
+
+### Tablet
+
+
+### Desktop
+
+
+## W3 HTML Validator 
+
+HTML validation validator helped by providing the application’s pages to the validator, I was able to detect errors such as missing tags, incorrect attributes, or deprecated elements. This process helped improve browser compatibility, accessibility, and overall code quality. Using the validator throughout development ensured that the application remained clean, professional, and standards-compliant, reducing potential issues for users. 
+
+### Index page
+
+### Blog page
+
+### Login
+
+### Post_detail
+
+### Post_form 
+
+### Register
+
+
+## W3 CSS Validator 
+
+
+Css validation validator helped by providing the application’s pages to the validator, no errors were found
+
+
+## Jshint testing
+
+The code has been tested and successfully passes JSHint without any critical issues. It follows modern ES6+ standards, utilizing const and let for variable declarations, ensuring better scope management.
+
+
+
+
+
