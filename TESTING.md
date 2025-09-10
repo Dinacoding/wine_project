@@ -17,7 +17,20 @@
 | Access related posts from User | Use `user.wine_posts.all()` in Django shell | Returns queryset of all posts by that user |
 | Required field validation | Try to save a `WinePost` without setting `author` | Validation error is raised |
 | Cascade edit behaviour | Edit the `Wine_post` linked to a `User` | The logged in user can edit the post ( duet to the EditWinePost.view and respective url)|
+| Footer contains social links and direct you to an external tab| Yes | It results as expected|
 |
+
+
+### Login and log out testing 
+
+| Categotry | Test Case | Notes | Result|
+|------|--------|-------| -------|
+| User | Visit the login page while logged in| | Ensures proper redirection and a good user experience for authenticated users. |
+| User |Visit the login page while logged out | | Verifies the initial state for new or logged-out visitors. |
+| Functionality| Submit the form with valid credentials | | Tests the form.non_field_errors display for authentication failures |
+| Navigation | Click the "Create Account" button. | | Ensures the link is correctly configured and working |
+
+
 
 
 
@@ -65,6 +78,12 @@ Css validation validator helped by providing the application’s pages to the va
 The code has been tested and successfully passes JSHint without any critical issues. It follows modern ES6+ standards, utilizing const and let for variable declarations, ensuring better scope management.
 
 
+## Manual Testing
 
+To performe a comprehensive manual evalutation of the Wine_Project web application, it is important to start assessing its functionalities and features. Firstly, ensure that the logo within the header redirects users to the homepage, secondly the toggle button should be tested to ensute it propertly expands and collapses the navigation links. To assess the website's responsiveness, its interface should be tested on different screen sizes and devices. This involves verifying that the layout adapts based on already defined CSS media query breakpoints. At last, a comprehensive review of the color scheme and design consistency is essential to ensure that background images, text colors, and other visual elements align with the intended design specifications.
+
+
+
+To sum up, this manual testing will result in a fully operational website that provides a seamless user experience.
 
 
