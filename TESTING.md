@@ -89,7 +89,19 @@
 | Updated Timestamp      | Edit a post and reload detail page.              | Updated date is displayed next to published date.                                | Pass   | Confirms modified date field is correctly rendered.          |
 
 
+### Register Form
 
+| Test Category                  | Test Case                                                     | Expected Result                                                                 | Result | Notes                                                                  |
+|--------------------------------|---------------------------------------------------------------|---------------------------------------------------------------------------------|--------|------------------------------------------------------------------------|
+| Page Display (Logged Out)      | Navigate to `/register/` while logged out.                    | "Join Wine Project" heading, "Create your account!" subtitle, and full form visible. | Pass   | Verifies initial page state for a new user.                            |
+| Page Display (Logged In)       | Navigate to registration page while logged in.                | Message: "You are already logged in as [username]." Form not visible.            | Pass   | Ensures logged-in users cannot access registration form.               |
+| Form Fields                    | Inspect the form fields.                                      | Fields for First Name, Last Name, Username, Email, Password, Confirm Password.   | Pass   | Confirms all required fields for account creation exist.                |
+| Form Validation (Required)     | Submit with one or more required fields blank.                | Error message shown for each blank field.                                       | Pass   | Tests validation for missing required data.                             |
+| Form Validation (Password Mismatch) | Enter different values for Password and Confirm Password.       | Error: passwords do not match.                                                  | Pass   | Confirms password confirmation is enforced.                            |
+| Form Validation (Existing User)| Try registering with an existing username or email.           | Error: username or email already taken.                                         | Pass   | Prevents duplicate accounts.                                           |
+| Form Submission (Success)      | Fill all fields with valid, unique data and submit.           | User created, success message shown, redirected to login page (or next step).    | Pass   | Tests full successful registration flow.                               |
+| Messaging                      | Submit form (success or error).                               | Bootstrap alert: green for success, red for error, dismissible.                  | Pass   | Verifies Django messages framework works properly.                     |
+| Navigation                     | Click "Login Here" link at bottom of page.                    | Browser navigates to `/login/`.                                                 | Pass   | Ensures login navigation link works.                                   |
 
 
 
