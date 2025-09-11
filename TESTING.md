@@ -2,6 +2,10 @@
 
 ## Functionality Testing
 
+The functionality test will ensure that the features of the Wine Project will behave as is expected to. The testing verifes the user interactions such as creating, editing and deleting the posts. Also it covers the logging in and out and the navigations around the webpages. Forms and submissions as valitation and required fields and erros handling.
+Navigation links, buttons, and modals are checked for proper redirection and display. Messaging alerts are validated for accurate feedback. 
+Overall, functionality testing confirms that the application’s workflows are reliable, secure, and user-friendly.
+
 
 ### Webpage functionality 
 
