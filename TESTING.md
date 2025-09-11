@@ -21,6 +21,8 @@
 
 
 
+
+
 ### Login and log out testing 
 
 | Categotry | Test Case | Notes | Result|
@@ -28,9 +30,30 @@
 | User | Visit the login page while logged in| | Ensures proper redirection and a good user experience for authenticated users. |
 | User |Visit the login page while logged out | | Verifies the initial state for new or logged-out visitors. |
 | Functionality| Submit the form with valid credentials | | Tests the form.non_field_errors display for authentication failures |
+| Form Validation | Submit the form with an empty username or password field | Page reloads, and specific validation errors ("This field is required") are displayed below the respective fields | Verifies field-level error handling using form.username.errors and form.password.errors |
 | Navigation | Click the "Create Account" button. | | Ensures the link is correctly configured and working |
+| Form Validation | Submit the form with an invalid username and/or password. | Page reloads with a general error message, example, "Please enter a correct username and password." | Tests the form.non_field_errors display for authentication failures. |
 
 
+
+### Blog 
+
+| Category           | Action / Scenario                                         | Expected Result                                                                 | Status |
+|--------------------|-----------------------------------------------------------|---------------------------------------------------------------------------------|--------|
+| User State         | Visit home page while logged out                          | "Welcome to Wine Project" displayed; links for "Login" and "Register" visible    | Pass   |
+| User State         | Visit home page after logging in                          | "Hello, {{ user.username }}!" displayed; "Create New Post" and "Logout" buttons visible | Pass   |
+| Navigation         | Click "Login" link while logged out                       | Browser navigates to login page (`/login/`)                                     | Pass   |
+| Navigation         | Click "Register" link while logged out                    | Browser navigates to registration page (`/register/`)                           | Pass   |
+| Navigation         | Click "Create New Post" while logged in                   | Browser navigates to post creation page (`/create_post/`)                       | Pass   |
+| Functionality      | Click "Logout" button while logged in                     | User is logged out, redirected, and home page reverts to logged-out view        | Pass   |
+| Content Display    | Visit page when `wine_posts` list is empty                | Message displayed: "No wine posts available yet. Be the first to share a review!" | Pass   |
+| Content Display    | Visit page with multiple wine posts                       | Cards displayed for each post: title, wine name, vintage, content preview, author, date | Pass   |
+| Functionality      | Click "Read Full Review" as post author                   | Browser navigates to detail page for that specific post                         | Pass   |
+| Functionality      | Click "Delete" button as post author                      | "Confirm Delete" modal displayed with correct post title                        | Pass   |
+| Functionality      | In delete modal, click "Delete Post"                      | Post is deleted, user redirected, and post no longer visible on home page       | Pass   |
+
+
+### Post Form
 
 
 
