@@ -55,6 +55,23 @@
 
 ### Post Form
 
+| Test Category       | Test Case                                                         | Expected Result                                                                                          | Result | Notes                                                                |
+|---------------------|-------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|--------|----------------------------------------------------------------------|
+| Form Display (Create) | Navigate to the create post page (`/create_post/`).               | Title = "Create Wine Post". Main button = "Create Wine Post". Cancel → `/blog/`.                         | Pass   | Verifies correct initial state for a new post.                       |
+| Form Display (Edit)   | Navigate to the edit page for an existing post (`/edit_post/my-post-slug/`). | Title = "Edit Wine Post". Fields pre-populated. Main button = "Update Wine Post". Cancel → post detail.   | Pass   | Confirms form loads correctly for editing.                           |
+| Form Validation       | Submit with a required field left blank.                         | Error alert displayed below the empty field.                                                             | Pass   | Tests field-level error handling.                                    |
+| Form Validation       | Submit with invalid data (e.g., wrong date format).              | Validation error displayed below the field.                                                              | Pass   | Checks error messages on invalid input.                              |
+| Form Validation       | Submit with non-field errors (e.g., server-side validation).     | Error alert displayed at top of the form.                                                                | Pass   | Verifies general form errors handled correctly.                      |
+| Form Submission (Create) | Fill in valid data and click "Create Wine Post".                 | Post created. Success message shown. Redirected to new post’s detail page.                                | Pass   | Ensures creation + redirection flow works.                           |
+| Form Submission (Edit)   | Modify post data and click "Update Wine Post".                   | Post updated. Success message shown. Redirected to updated post’s detail page.                            | Pass   | Verifies updates saved + correct redirect.                           |
+| Navigation            | Click "Cancel" on create form.                                   | Redirected to `/blog/` without creating a post.                                                          | Pass   | Confirms cancel works for new post.                                  |
+| Navigation            | Click "Cancel" on edit form.                                     | Redirected to the post’s detail page without saving changes.                                              | Pass   | Confirms cancel works for editing.                                   |
+| Messaging             | Submit form with success outcome.                                | Green success alert displayed at top of form.                                                            | Pass   | Verifies Django messages framework success display.                  |
+| Messaging             | Submit form with error outcome.                                  | Red error alert displayed at top of form or near the field.                                               | Pass   | Verifies Django messages framework error display.                    |
+
+
+
+
 
 
 
