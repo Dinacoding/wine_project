@@ -1,3 +1,10 @@
+
+
+## Functionality Testing
+
+
+### Webpage functionality 
+
 | Task | Status | Notes |
 |------|--------|-------|
 | Git initialized | Yes | Project under version control |
@@ -18,9 +25,6 @@
 | Required field validation | Try to save a `WinePost` without setting `author` | Validation error is raised |
 | Cascade edit behaviour | Edit the `Wine_post` linked to a `User` | The logged in user can edit the post ( duet to the EditWinePost.view and respective url)|
 | Footer contains social links and direct you to an external tab| Yes | It results as expected|
-
-
-
 
 
 ### Login and log out testing 
@@ -70,6 +74,20 @@
 | Messaging             | Submit form with error outcome.                                  | Red error alert displayed at top of form or near the field.                                               | Pass   | Verifies Django messages framework error display.                    |
 
 
+### Post Detail
+
+| Test Category          | Test Case                                        | Expected Result                                                                 | Result | Notes                                                        |
+|------------------------|--------------------------------------------------|---------------------------------------------------------------------------------|--------|--------------------------------------------------------------|
+| Content Display        | Visit a specific post's detail page.             | Post title, wine name, vintage year, author, and content are displayed. Title also appears in the page title. | Pass   | Verifies content is correctly rendered from the post object. |
+| Navigation             | Click the "Back to All Posts" button.            | Browser navigates to `/blog/`.                                                  | Pass   | Confirms navigation link works.                             |
+| User State (Not Author)| View a post not authored by the logged-in user.  | "Delete" and "Edit" buttons are not visible.                                    | Pass   | Ensures only the author sees edit/delete actions.            |
+| User State (Author)    | View a post authored by the logged-in user.      | "Delete" and "Edit" buttons are visible.                                        | Pass   | Confirms correct visibility of action buttons.               |
+| Delete Modal           | Click "Delete" as the author.                    | "Confirm Delete" modal appears with the specific post title.                     | Pass   | Verifies modal triggers with correct content.                |
+| Delete Action          | In delete modal, click "Delete Post".            | Post deleted, user redirected to `/blog/`, and post is no longer visible.        | Pass   | Confirms delete form submission works correctly.             |
+| Edit Modal             | Click "Edit" as the author.                      | "Edit Wine Post" modal appears with pre-populated fields.                        | Pass   | Checks modal loads correctly with current post data.         |
+| Edit Action            | Modify field in edit modal and save changes.     | Post updated, success message shown, user remains on detail page with updates.   | Pass   | Verifies edit submission updates post successfully.          |
+| Updated Timestamp      | Edit a post and reload detail page.              | Updated date is displayed next to published date.                                | Pass   | Confirms modified date field is correctly rendered.          |
+
 
 
 
@@ -84,7 +102,6 @@
 ### Mobile
 
 
-### Tablet
 
 
 ### Desktop
