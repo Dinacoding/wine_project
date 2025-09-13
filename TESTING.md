@@ -113,17 +113,26 @@ Overall, functionality testing confirms that the application’s workflows are r
 
 ## Lighthouse Testing
 
-
-
 ### Mobile
 
-- [Home](documentation/testing/index.png)
--
+On the phone, web application showcases strong performance in key areas, as evidenced by the Lighthouse audit. Achieving a perfect 100 in both Best Practices and SEO demonstrates excellent adherence to web development standards and robust search engine optimization. Accessibility scores a solid 96. While Performance scores between 60 to 75, it still reflects a well-optimised application with room for further improvements to ensure optimal loading times and user experience. Overall, the Vinotype application demonstrates a solid foundation and a commitment to quality across critical web development metrics.
 
-
-
+- [Home](documentation/lighthouse/mobile/lighhouse-phone-home.png)
+- [Login](documentation/lighthouse/mobile/lighthouse-login-phone.png)
+- [Card](documentation/lighthouse/mobile/lighthouse-card-phone.png)
+- [Blog](documentation/lighthouse/mobile/lighthouse-post-card.png)
+- [Register](documentation/lighthouse/mobile/lighthouse-register-phone.png)
 
 ### Desktop
+
+ On desktop, Wine Project web application demonstrates medium to strong performance, scoring a between 60 - 80 in Perfomance and 100 in Best Practices categories in the Lighthouse audit. The application also excels in SEO, achieving a 100 score, indicating excellent search engine optimization. While Accessibility scored a commendable 96, it suggests there's room for minor improvements to ensure a more inclusive user experience. Overall, these results highlight the application's robust technical foundation, efficient loading times, adherence to best web development practices, and strong visibility in search engines.
+
+- [Home](documentation/lighthouse/desktop/lighthouse-home.png)
+- [Login](documentation/lighthouse/desktop/lighthouse-login.png)
+- [Card](documentation/lighthouse/desktop/post-card.png)
+- [Blog](documentation/lighthouse/desktop/lighthouse-post.png)
+- [Register](documentation/lighthouse/desktop/lighthouse-register.png)
+
 
 
 ## W3 HTML Validator 
@@ -172,6 +181,8 @@ The code has been tested and successfully passes JSHint without any critical iss
 
 - [click here](documentation/testing/js.png)
 
+
+## 
 
 
 ## Manual Testing
