@@ -182,15 +182,29 @@ The code has been tested and successfully passes JSHint without any critical iss
 - [click here](documentation/testing/js.png)
 
 
-## 
+##  **Responsiveness & Cross-Browser Compatibility**
+
+| **Tested On** | **Status** | **Notes** |
+|--------------|-----------|----------|
+| Google Chrome | Passed | Fully functional |
+| Mozilla Firefox | passed | Fully functional |
+| Microsoft Edge | Passed |  |
+| Mobile (iOS) | Passed | Responsive layout confirmed |
+
+
+- [Chrome](documentation/browser-testing/chrome.png)
+- [Edge](documentation/brower-testing/edge.png)
+- [Firefox](documentation/brower-testing/mozilla.png)
+- [IOS](documentation/brower-testing/ios.png)
+
 
 
 ## Manual Testing
 
 To performe a comprehensive manual evalutation of the Wine_Project web application, it is important to start assessing its functionalities and features. Firstly, ensure that the logo within the header redirects users to the homepage, secondly the toggle button should be tested to ensute it propertly expands and collapses the navigation links. To assess the website's responsiveness, its interface should be tested on different screen sizes and devices. This involves verifying that the layout adapts based on already defined CSS media query breakpoints. At last, a comprehensive review of the color scheme and design consistency is essential to ensure that background images, text colors, and other visual elements align with the intended design specifications.
-
-
-
 To sum up, this manual testing will result in a fully operational website that provides a seamless user experience.
 
 
+## Automated testig
+
+In addition to functional testing, automated checks were applied to validate code quality and maintain consistency with Django best practices. Tests can be executed using the command python manage.py test, providing immediate feedback on the health of the application. This approach ensures that core functionalities remain intact even after new features are added or changes are made, supporting long-term maintainability and scalability of the project.
