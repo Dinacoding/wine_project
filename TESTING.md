@@ -1,4 +1,32 @@
+1. [Functionality Testing](#functionality-testing)  
+   - [Webpage Functionality](#webpage-functionality)  
+   - [Login and Logout Testing](#login-and-log-out-testing)  
+   - [Blog](#blog)  
+   - [Post Form](#post-form)  
+   - [Post Detail](#post-detail)  
+   - [Register Form](#register-form)  
 
+2. [Lighthouse Testing](#lighthouse-testing)  
+   - [Mobile](#mobile)  
+   - [Desktop](#desktop)  
+
+3. [W3 HTML Validator](#w3-html-validator)  
+   - [Index Page](#index-page)  
+   - [Blog Page](#blog-page)  
+   - [Login](#login)  
+   - [Post Detail](#post_detail)  
+   - [Post Form](#post_form)  
+   - [Register](#register)  
+
+4. [W3 CSS Validator](#w3-css-validator)  
+
+5. [JSHint Testing](#jshint-testing)  
+
+6. [Responsiveness & Cross-Browser Compatibility](#responsiveness--cross-browser-compatibility)  
+
+7. [Manual Testing](#manual-testing)  
+
+8. [Automated Testing](#automated-testig)  
 
 ## Functionality Testing
 
